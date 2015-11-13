@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.RegistrationLogin">
+  <children>
+    <Label fx:id="HEADER" layoutX="100.0" layoutY="66.0" prefHeight="45.0" prefWidth="186.0" text="LOGIN">
+      <font>
+        <Font name="Times New Roman Bold" size="36.0" />
+      </font>
+    </Label>
+    <Label layoutX="84.0" layoutY="138.0" prefHeight="22.0" prefWidth="154.0" text="USERNAME:">
+      <font>
+        <Font name="Times New Roman" size="14.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label font="$x1" layoutX="84.0" layoutY="214.0" prefHeight="22.0" prefWidth="109.0" text="PASSWORD:" />
+    <TextField fx:id="log_username" layoutX="70.0" layoutY="173.0" prefWidth="200.0" />
+    <TextField fx:id="log_password" layoutX="70.0" layoutY="250.0" prefWidth="200.0" />
+    <Button fx:id="submitbutton" layoutX="201.0" layoutY="299.0" mnemonicParsing="false" onAction="#login" onMouseDragOver="#foo" prefHeight="22.0" prefWidth="75.0" text="SUBMIT" />
+      <Hyperlink fx:id="register" layoutX="145.0" layoutY="330.0" onAction="#openRegistrationForm" text="Click here to register for new user" />
+      <Label layoutX="34.0" layoutY="14.0" text="Welcome to CIMD banking system!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Hyperlink fx:id="quit" layoutX="14.0" layoutY="333.0" onAction="#quitwindow" text="Quit" />
+  </children>
+</AnchorPane>

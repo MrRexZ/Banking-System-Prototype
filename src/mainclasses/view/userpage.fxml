@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="455.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.UserEventController">
+   <children>
+      <SplitPane fx:id="split" dividerPositions="0.2608695652173913" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <AnchorPane fx:id="leftmainanchorpane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox prefHeight="398.0" prefWidth="114.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="displayusername" text="Welcome">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#checkBalance" prefHeight="0.0" prefWidth="116.0" text="Check Balance">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#openTransfer" text="Transfer">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#viewPersonalDetails" text="Personal Details">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#upgradeAccount" prefHeight="26.0" prefWidth="132.0" text="Upgrade Account">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#logout" prefHeight="26.0" prefWidth="132.0" text="Logout">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="270.0" />
+                           </VBox.margin>
+                        </Hyperlink>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <StackPane fx:id="rightstackpane" layoutX="120.0" layoutY="131.0" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane fx:id="balancepanel" prefHeight="398.0" prefWidth="457.0" visible="false">
+                     <children>
+                        <Label fx:id="balance" layoutX="14.0" layoutY="95.0" prefHeight="51.0" prefWidth="383.0" text="Your balance is :">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="transferpanel" prefHeight="398.0" prefWidth="457.0" visible="false">
+                     <children>
+                        <Label fx:id="display_balance" layoutX="14.0" layoutY="14.0" text="Balance :" />
+                        <Label layoutX="14.0" layoutY="71.0" text="Select your target account number :" />
+                        <Label layoutX="14.0" layoutY="123.0" text="Select amount:" />
+                        <TextField fx:id="enter_targetacc" layoutX="10.0" layoutY="88.0" />
+                        <TextField fx:id="enter_amount" layoutX="10.0" layoutY="140.0" />
+                        <Button layoutX="11.0" layoutY="174.0" mnemonicParsing="false" onAction="#continueTransfer" text="Continue" />
+                        <Button layoutX="84.0" layoutY="174.0" mnemonicParsing="false" text="Clear" />
+                        <Label fx:id="display_destno" layoutX="15.0" layoutY="270.0" text="Destination Account No. :" />
+                        <Label fx:id="display_destname" layoutX="16.0" layoutY="294.0" text="Recipient Name :" />
+                        <Button layoutX="15.0" layoutY="347.0" mnemonicParsing="false" onAction="#confirmTransaction" text="Confirm" />
+                        <Label fx:id="transactionno" layoutX="151.0" layoutY="351.0" text="Transaction No" />
+                        <Label fx:id="display_sendername" layoutX="16.0" layoutY="249.0" text="Sender Name:" />
+                        <Label fx:id="display_senderno" layoutX="16.0" layoutY="227.0" text="Sender Account No. :" />
+                        <Label fx:id="display_amount" layoutX="13.0" layoutY="317.0" text="Amount :" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="personaldetailspanel" prefHeight="398.0" prefWidth="457.0">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="395.0" prefWidth="116.0" spacing="20.0">
+                           <children>
+                              <Label graphicTextGap="0.0" prefHeight="11.0" prefWidth="75.0" text="First Name" />
+                              <Label prefHeight="19.0" prefWidth="65.0" text="Last Name" />
+                              <Label text="Gender" />
+                              <Label text="DOB" />
+                              <Label text="Nationality" />
+                              <Label text="Address" />
+                              <Label text="Contact Number">
+                                 <VBox.margin>
+                                    <Insets top="70.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Username" />
+                              <Label text="Password" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="130.0" layoutY="15.0" prefHeight="420.0" prefWidth="116.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="pd_fname" graphicTextGap="0.0" prefHeight="11.0" prefWidth="75.0" text=": First Name" />
+                              <Label fx:id="pd_lname" prefHeight="19.0" prefWidth="65.0" text=": Last Name" />
+                              <Label fx:id="pd_gender" text=": Gender" />
+                              <Label fx:id="pd_dob" text=": DOB" />
+                              <Label fx:id="pd_nation" text=": Nationality" />
+                              <Label fx:id="pd_address" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="245.0" text=": Address">
+                                 <padding>
+                                    <Insets top="-50.0" />
+                                 </padding></Label>
+                              <Label fx:id="pd_contactno" text=":">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="pd_uname" text=":" />
+                              <Label fx:id="pd_password" text=":" />
+                           </children>
+                        </VBox>
+                        <Button layoutX="14.0" layoutY="427.0" mnemonicParsing="false" onAction="#editpersonaldetails" text="Edit" />
+                        <Button layoutX="61.0" layoutY="427.0" mnemonicParsing="false" onAction="#confirmchanges" text="Confirm" />
+                        <VBox layoutX="120.0" layoutY="15.0" prefHeight="387.0" prefWidth="252.0" spacing="20.0" visible="false">
+                           <children>
+                              <TextField fx:id="edit_fname" />
+                              <TextField fx:id="edit_lname">
+                                 <VBox.margin>
+                                    <Insets top="-10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="edit_gender">
+                                 <VBox.margin>
+                                    <Insets top="-5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <DatePicker fx:id="edit_dob">
+                                 <VBox.margin>
+                                    <Insets top="-8.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <TextField fx:id="edit_nation">
+                                 <VBox.margin>
+                                    <Insets top="-10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextArea fx:id="edit_address" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="252.0">
+                                 <VBox.margin>
+                                    <Insets top="-5.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <TextField fx:id="edit_contactno">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TextField>
+                              <PasswordField fx:id="edit_password" />
+                              <PasswordField fx:id="edit_confirmpassword" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </StackPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

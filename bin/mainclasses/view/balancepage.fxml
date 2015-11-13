@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.UserEventController">
+   <children>
+      <SplitPane fx:id="split" dividerPositions="0.2608695652173913" prefHeight="400.0" prefWidth="600.0">
+         <items>
+            <AnchorPane fx:id="firstanchor" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox prefHeight="398.0" prefWidth="114.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="displayusername" text="Welcome">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#checkBalance" prefHeight="0.0" prefWidth="116.0" text="Check Balance">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#openTransfer" text="Transfer">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#viewPersonalDetails" text="Personal Details">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#upgradeAccount" prefHeight="26.0" prefWidth="132.0" text="Upgrade Account">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#logout" prefHeight="26.0" prefWidth="132.0" text="Logout">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="230.0" />
+                           </VBox.margin>
+                        </Hyperlink>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="398.0" prefWidth="457.0">
+               <children>
+                  <Label fx:id="balance" layoutX="14.0" layoutY="95.0" prefHeight="51.0" prefWidth="383.0" text="Your balance is :">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
