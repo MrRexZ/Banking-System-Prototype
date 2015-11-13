@@ -35,18 +35,16 @@ object Main extends JFXApp{
  val userpageroot=userloader.getRoot[javafx.scene.layout.AnchorPane]
 
 
- var resource = getClass.getResource("view/adminpage.fxml")
-  val adminloader = new jfxf.FXMLLoader(resource)
-  val adminpage = adminloader.load[jfxs.Parent]
-  val admincontroller = adminloader.getController[AdminEventController]
- val adminroot= adminloader.getRoot[javafx.scene.layout.AnchorPane]
+  val adminloader = "view/adminpage.fxml".loadFXML();  
+  val admincontroller=adminloader.getController[eventhandling.AdminEventController#Controller]()
+  val adminroot=adminloader.getRoot[javafx.scene.layout.AnchorPane]
   
  val rootlayout="view/RootLayout.fxml".loadFXML();
  val roots = rootlayout.getRoot[javafx.scene.layout.BorderPane]
  
  val mainlayout = "view/mainpage.fxml".loadFXML(); 
  val mainpage=mainlayout.getRoot[javafx.scene.layout.AnchorPane]
- roots.setCenter(mainpage)
+ roots.setCenter(adminroot)
  
  val registrationpagelayout="view/registrationform.fxml".loadFXML();
  val registrationpage=registrationpagelayout.getRoot[javafx.scene.layout.AnchorPane]

@@ -4,17 +4,33 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
    <children>
-      <TableView fx:id="tableID" layoutX="174.0" layoutY="94.0" prefHeight="200.0" prefWidth="376.0">
-        <columns>
-          <TableColumn fx:id="D1" prefWidth="75.0" text="C1" />
-          <TableColumn fx:id="D2" prefWidth="75.0" text="C2" />
-            <TableColumn fx:id="D3" prefWidth="46.0" text="Column X" />
-            <TableColumn fx:id="D4" prefWidth="46.0" text="Column X" />
-            <TableColumn fx:id="D5" prefWidth="46.0" text="Column X" />
-        </columns>
-      </TableView>
-      <Button fx:id="but1" layoutX="98.0" layoutY="169.0" mnemonicParsing="false" onAction="#refresh" text="Button" />
+      <Button fx:id="but1" layoutX="274.0" layoutY="343.0" mnemonicParsing="false" onAction="#refresh" text="Button" />
+      <SplitPane dividerPositions="0.1787974683544304" layoutY="96.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="148.0" />
+            <ScrollPane prefHeight="398.0" prefViewportHeight="398.0" prefViewportWidth="417.0" prefWidth="400.0">
+               <content>
+                  <TableView fx:id="tableID">
+                    <columns>
+                      <TableColumn fx:id="col_username" prefWidth="72.0" text="Username" />
+                        <TableColumn fx:id="col_balance" prefWidth="72.0" text="Balance" />
+                      <TableColumn fx:id="col_fname" prefWidth="78.0" text="First Name" />
+                        <TableColumn fx:id="col_lname" prefWidth="68.0" text="Last Name" />
+                        <TableColumn fx:id="col_password" prefWidth="70.0" text="Password" />
+                        <TableColumn fx:id="D5" minWidth="0.0" prefWidth="0.0" text="Column X" />
+                        <TableColumn fx:id="col_address" prefWidth="62.0" text="Address" />
+                        <TableColumn fx:id="col_contact" minWidth="0.0" prefWidth="76.0" text="Contact" />
+                        <TableColumn fx:id="col_gender" minWidth="0.0" prefWidth="0.0" text="Gender" />
+                        <TableColumn fx:id="col_dob" prefWidth="46.0" text="DOB" />
+                        <TableColumn fx:id="col_nation" prefWidth="46.0" text="Nationality" />
+                        <TableColumn fx:id="col_accno" prefWidth="46.0" text="Account Number" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>
