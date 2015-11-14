@@ -1,7 +1,7 @@
 
 package mainclasses
 
-abstract class Person(var fname : String , var lname: String,var gender : String, var address : String, var status : String) {
+abstract class Person(var p_fname : String , var p_lname: String,var p_gender : String, var p_address : String, var p_status : String) {
 
 }
 
