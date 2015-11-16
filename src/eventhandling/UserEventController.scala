@@ -1,5 +1,5 @@
 package eventhandling             
-import scalafxml.core.macros.sfxml   
+import scalafxml.core.macros.sfxml    
 import scalafx.scene.control.{Label,TextField,TextArea,DatePicker,PasswordField}
 import scalafx.scene.layout._
 import mainclasses._
@@ -126,7 +126,7 @@ class UserEventController(
   }
 
   def confirmchanges (e : ActionEvent) {
-  Main.user(Main.loggedin).updateInfo(Main.user(Main.loggedin))
+  Main.user(Main.loggedin).updateInfo()
   Main.disable(edit_fname,edit_lname,edit_gender,edit_dob,edit_nation,edit_address,edit_contactno,edit_password,edit_confirmpassword)
   Main.enable(pd_fname,pd_lname,pd_gender,pd_dob,pd_nation,pd_address,pd_contactno,pd_uname,pd_password) 
     pd_fname.text.value= ": "+Main.user(Main.loggedin).u_fname
@@ -139,6 +139,13 @@ class UserEventController(
     pd_contactno.text.value= ": "+Main.user(Main.loggedin).u_contact
     pd_uname.text.value=": "+Main.user(Main.loggedin).u_uname
     pd_password.text.value= ": "+Main.user(Main.loggedin).u_password
+  }
+  
+  def requestLoan(e : ActionEvent) {
+    
+  }
+  def showCredits(e : ActionEvent){
+    
   }
   def logout(event: ActionEvent) {
     Main.roots.setCenter(Main.mainpage)

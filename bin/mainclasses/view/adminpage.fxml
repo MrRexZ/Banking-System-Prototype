@@ -1,38 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
    <children>
-      <SplitPane dividerPositions="0.1787974683544304" layoutY="96.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.1787974683544304" layoutY="96.0" prefHeight="480.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="148.0">
                <children>
-                  <Button layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#logout" text="Button" />
+                  <Button layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
                   <TextField fx:id="search" layoutX="14.0" layoutY="24.0" prefHeight="5.0" prefWidth="70.0" />
-                  <Button layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#startSearch" text="Button" />
+                  <Button fx:id="Search" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#startSearch" text="Search" />
+                  <Button fx:id="Search1" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" onAction="#editSelected" text="Edit" />
+                  <Button fx:id="Search11" layoutX="14.0" layoutY="118.0" mnemonicParsing="false" onAction="#startSearch" text="Remove" />
                </children></AnchorPane>
-            <ScrollPane fx:id="scrollpane" prefViewportHeight="398.0" prefViewportWidth="417.0">
-               <content>
-                  <TableView fx:id="tableID" editable="true">
-                    <columns>
-                      <TableColumn fx:id="col_uname" prefWidth="72.0" text="Username" />
-                        <TableColumn fx:id="col_balance" prefWidth="72.0" text="Balance" />
-                      <TableColumn fx:id="col_fname" prefWidth="100.0" text="First Name" />
-                        <TableColumn fx:id="col_lname" prefWidth="68.0" text="Last Name" />
-                        <TableColumn fx:id="col_password" prefWidth="70.0" text="Password" />
-                        <TableColumn fx:id="col_address" minWidth="-1.0" prefWidth="200.0" text="Address" />
-                        <TableColumn fx:id="col_contact" minWidth="0.0" prefWidth="120.0" text="Contact" />
-                        <TableColumn fx:id="col_gender" minWidth="0.0" prefWidth="75.0" text="Gender" />
-                        <TableColumn fx:id="col_dob" prefWidth="120.0" text="DOB" />
-                        <TableColumn fx:id="col_nation" prefWidth="120.0" text="Nationality" />
-                        <TableColumn fx:id="col_accno" prefWidth="46.0" text="Account Number" />
-                    </columns>
-                  </TableView>
-               </content>
-            </ScrollPane>
+            <StackPane>
+               <children>
+                  <ScrollPane fx:id="scrollpane" prefViewportHeight="398.0" prefViewportWidth="417.0" visible="false">
+                     <content>
+                        <TableView fx:id="tableID" editable="true" prefHeight="459.0" prefWidth="1065.0">
+                          <columns>
+                            <TableColumn fx:id="col_uname" prefWidth="72.0" text="Username" />
+                              <TableColumn fx:id="col_balance" prefWidth="72.0" text="Balance" />
+                            <TableColumn fx:id="col_fname" prefWidth="100.0" text="First Name" />
+                              <TableColumn fx:id="col_lname" prefWidth="68.0" text="Last Name" />
+                              <TableColumn fx:id="col_password" prefWidth="70.0" text="Password" />
+                              <TableColumn fx:id="col_address" minWidth="-1.0" prefWidth="200.0" text="Address" />
+                              <TableColumn fx:id="col_contact" minWidth="0.0" prefWidth="120.0" text="Contact" />
+                              <TableColumn fx:id="col_gender" minWidth="0.0" prefWidth="75.0" text="Gender" />
+                              <TableColumn fx:id="col_dob" prefWidth="120.0" text="DOB" />
+                              <TableColumn fx:id="col_nation" prefWidth="120.0" text="Nationality" />
+                              <TableColumn fx:id="col_accno" prefWidth="46.0" text="Account Number" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+                  <AnchorPane fx:id="personaldetailspanel" prefHeight="398.0" prefWidth="457.0">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="395.0" prefWidth="116.0" spacing="20.0">
+                           <children>
+                              <Label graphicTextGap="0.0" prefHeight="11.0" prefWidth="75.0" text="First Name" />
+                              <Label prefHeight="19.0" prefWidth="65.0" text="Last Name" />
+                              <Label text="Gender" />
+                              <Label text="DOB" />
+                              <Label text="Nationality" />
+                              <Label text="Address" />
+                              <Label text="Contact Number">
+                                 <VBox.margin>
+                                    <Insets top="70.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Username" />
+                              <Label text="Password" />
+                           </children>
+                        </VBox>
+                        <Button layoutX="61.0" layoutY="427.0" mnemonicParsing="false" onAction="#confirmChanges" text="Confirm" />
+                        <VBox layoutX="120.0" layoutY="15.0" prefHeight="387.0" prefWidth="252.0" spacing="20.0">
+                           <children>
+                              <TextField fx:id="edit_fname" />
+                              <TextField fx:id="edit_lname">
+                                 <VBox.margin>
+                                    <Insets top="-10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="edit_gender">
+                                 <VBox.margin>
+                                    <Insets top="-5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <DatePicker fx:id="edit_dob">
+                                 <VBox.margin>
+                                    <Insets top="-8.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <TextField fx:id="edit_nation">
+                                 <VBox.margin>
+                                    <Insets top="-10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextArea fx:id="edit_address" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="252.0">
+                                 <VBox.margin>
+                                    <Insets top="-5.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <TextField fx:id="edit_contactno">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="edit_uname" />
+                              <TextField fx:id="edit_password" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </StackPane>
         </items>
       </SplitPane>
    </children>

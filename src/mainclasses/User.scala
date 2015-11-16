@@ -28,15 +28,15 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
      ano_user.u_balance=ano_user.u_balance + Main.usercontroller.display_amount.text.value.substring(8).toInt
   }
   
-  def updateInfo(u : User){
+  def updateInfo(){
     u_fname= checkIfEmpty(form.edit_fname.text.value,u_fname)
     u_lname= checkIfEmpty(form.edit_lname.text.value,u_lname)
     u_gender=checkIfEmpty(form.edit_gender.text.value,u_gender)
-   // u_dob= form.edit_dob.getValue.toString()
-    u_nation=form.edit_nation.text.value
-    u_address=form.edit_address.text.value
-    u_contact = form.edit_contactno.text.value
-    u_password=form.edit_password.text.value
+    u_dob= checkIfEmpty(form.edit_dob.getValue.toString(),u_dob)
+    u_nation=checkIfEmpty(form.edit_nation.text.value,u_nation)
+    u_address=checkIfEmpty(form.edit_address.text.value,u_address)
+    u_contact = checkIfEmpty(form.edit_contactno.text.value,u_contact)
+    u_password=checkIfEmpty(form.edit_password.text.value,u_password)
   }
   
   def checkIfEmpty(x : String, y :String): String = x match {

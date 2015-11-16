@@ -48,13 +48,25 @@
                            </VBox.margin>
                         </Hyperlink>
                         <Line endX="100.0" startX="-100.0" />
-                        <Hyperlink onAction="#logout" prefHeight="26.0" prefWidth="132.0" text="Logout">
+                        <Hyperlink onAction="#requestLoan" prefHeight="26.0" prefWidth="132.0" text="Personal Loan">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="270.0" />
+                              <Insets />
                            </VBox.margin>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#showCredits" prefHeight="26.0" prefWidth="132.0" text="About">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Hyperlink>
+                        <Line endX="100.0" startX="-100.0" />
+                        <Hyperlink onAction="#logout" prefHeight="26.0" prefWidth="132.0" text="Logout">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </Hyperlink>
                      </children>
                   </VBox>
