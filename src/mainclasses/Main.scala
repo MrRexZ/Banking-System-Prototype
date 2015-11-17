@@ -1,6 +1,6 @@
 package mainclasses
 
-import scalafx.Includes._        
+import scalafx.Includes._          
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
@@ -29,11 +29,21 @@ import scalafx.collections.ObservableBuffer
 
 object Main extends JFXApp{
   var user = ObservableBuffer[User]()
-  var yo = ObservableBuffer[User]()
+  var yo = ObservableBuffer[String]()
+  yo+= "a"
+  yo+= "b"
+  yo.remove(0)
+  println(yo(0))
+  println
   //var ami= scala.collection.mutable.Map("1" -> 0, "2" -> 1)
-  user += new User("a",null,null,"23",null,null,null,"1995-10-25",null,"1",1000)
-   user += new User("Daa",null,null,"ff",null,null,null,"1995-10-25",null,"2",1000)
-//user += new User("Daa",null,null,"ff",null,null,null,"1995/10/25",null,"3",1000)
+  user += new User("Anthony","Anthony","Tjuatja","23",null,null,null,"1995-10-25",null,"1",1000)
+   user += new User("AnthonyT","AnthonyT","Test","23",null,null,null,"3455-10-25",null,"3",1000)
+   user += new User("Daa",null,null,"ff",null,null,null,"3445-10-25",null,"2",1000)
+   user += new User("a",null,null,"23",null,null,null,"3455-10-25",null,"3",1000)
+  user += new User("AnthonyTE","AnthonyT","Test","23",null,null,null,"3455-10-25",null,"5",1000)
+user += new User("AnthonyTE","AnthonyT","Test","23",null,null,null,"3455-10-25",null,"7",1000)
+
+  //user += new User("Daa",null,null,"ff",null,null,null,"1995/10/25",null,"3",1000)
   val registrationpagelayout="view/registrationform.fxml".loadFXML();
  val registercontroller=registrationpagelayout.getController[eventhandling.RegistrationLogin#Controller]
  val registrationpage=registrationpagelayout.getRoot[javafx.scene.layout.AnchorPane]
@@ -66,7 +76,7 @@ object Main extends JFXApp{
    def disable(node:Node*) {
      node.foreach(_.visible =false)
   }
-  
+   
  
  /*def findById(id: Int): Option[User] = maps.get(id)
    def te(x: String) {

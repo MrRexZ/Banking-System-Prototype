@@ -15,6 +15,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import scalafx.scene.layout.AnchorPane
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import scala.collection.mutable.ArrayBuffer
 
 
 @sfxml
@@ -67,7 +68,9 @@ class AdminEventController(
     col_nation.cellValueFactory = {_.value.nation}
     col_accno.cellValueFactory = {_.value.accno}
     col_gender.cellValueFactory = {_.value.gender}
-      
+    
+    var searchQuery=ArrayBuffer[String]()
+    
     tableID.items=Main.user
     scrollpane.fitToHeight=true
     scrollpane.fitToWidth=true
@@ -96,15 +99,93 @@ col_uname.onEditCommit = (evt: CellEditEvent[User, String]) => {
     
    */ 
 def startSearch(e :ActionEvent ) {
-         tableID.items=null
+  
+    if (search.text.value!="")
+     searchQuery += search.text.value
+      tableID.items=null
+      var filtered=scala.collection.mutable.Map[Int,Int]()
+     var duplicate=false
+      var tempCollections =ObservableBuffer[User]()
+      var copyUser= ObservableBuffer[User]()
+      Main.user.copyToBuffer(tempCollections)
+     // println(copyUser.length)
+     for (loop <- 0 to searchQuery.length-1){
+      for (counter <- 0 to copyUser.length-1){
+        if (searchQuery(loop).length<=copyUser(counter).u_uname.length){
+          if (searchQuery(loop)==copyUser(counter).u_uname.substring(0,searchQuery(loop).length)) 
+            if (filtered.get(counter)==None){
+              tempCollections+=copyUser(counter)
+              filtered += (counter -> counter)
+            }}}
+      copyUser.trimStart(copyUser.length)
+      tempCollections.copyToBuffer(copyUser)
+      filtered.clear()
+     if(loop != searchQuery.length-1)
+      tempCollections.trimStart(tempCollections.length);    
+      
+     }
+              
+  
+    /* VERSION 2            if (search.text.value!="")
+     searchQuery += search.text.value
+      tableID.items=null
+      var filtered=ArrayBuffer[Int]()
+     var duplicate=false
+      var tempCollections =ObservableBuffer[User]()
+      var copyUser = Main.user
+     for (loop <- 0 to searchQuery.length-1)
+      for (counter <- 0 to Main.user.length-1)
+        if (searchQuery(loop).length<=Main.user(counter).u_uname.length)
+          if (searchQuery(loop)==Main.user(counter).u_uname.substring(0,searchQuery(loop).length)) 
+            if (tempCollections.length!=0){
+             for (innerloop <- 0 to tempCollections.length-1)
+               if (tempCollections(innerloop)==Main.user(counter))
+                 duplicate=true
+                 
+             if (duplicate==false) tempCollections += Main.user(counter)
+             duplicate=false
+            }
+            else tempCollections += Main.user(counter)      
+         */        
+   
+       tableID.items=tempCollections
+
+   /* VERSION 1  var filtered=ArrayBuffer[Int]()
+     var ta=0
+      var tempCollections =ObservableBuffer[User]()
+      for (counter <- 0 to Main.user.length-1)
+        for (loop <- 0 to searchQuery.length-1)
+        if (searchQuery(loop).length<=Main.user(counter).u_uname.length)
+          if (searchQuery(loop)==Main.user(counter).u_uname.substring(0,searchQuery(loop).length)) 
+            if (filtered.length!=0){
+            for (x <- 0 to filtered.length-1)    {   
+              if (filtered(x)==counter){
+                ta=1
+              }
+              }
+            if (ta!=1) {
+                tempCollections += Main.user(counter);
+                filtered+=counter
+                }
+            ta=0
+            }
+            else {tempCollections += Main.user(counter);
+                  filtered+=counter}
+            */
+
+  /*       tableID.items=null
       var tempCollections =ObservableBuffer[User]()
       for (counter <- 0 to Main.user.length-1)
         if (search.text.value.length<=Main.user(counter).u_uname.length)
-        if (search.text.value==Main.user(counter).u_uname.substring(0,search.text.value.length))
-          tempCollections += Main.user(counter)
+          if (search.text.value==Main.user(counter).u_uname.substring(0,search.text.value.length))
+            tempCollections += Main.user(counter)
 
-       tableID.items=tempCollections
+       tableID.items=tempCollections*/
     }
+
+def searchAlgorithm(x : String){
+
+}
  def refresh(e : ActionEvent) {
    
  }
@@ -147,7 +228,6 @@ def startSearch(e :ActionEvent ) {
     }
     
     def removeElement (e : ActionEvent) {
-      
          Main.user.remove(Main.user.indexWhere( _.u_accno == selectedAcc))
          
          
@@ -159,7 +239,7 @@ def startSearch(e :ActionEvent ) {
     }
     
     def addQuery (e :ActionEvent) {
-      
+    searchQuery += search.text.value
     }
       def logout(event: ActionEvent) {
     Main.roots.setCenter(Main.mainpage)
