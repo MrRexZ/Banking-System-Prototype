@@ -7,19 +7,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
    <children>
-      <SplitPane dividerPositions="0.1787974683544304" layoutY="96.0" prefHeight="480.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.21406727828746178" layoutY="96.0" prefHeight="480.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="148.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="478.0" prefWidth="148.0">
                <children>
                   <Button layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-                  <TextField fx:id="search" layoutX="14.0" layoutY="24.0" prefHeight="5.0" prefWidth="70.0" />
-                  <Button fx:id="Search" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#startSearch" text="Search" />
-                  <Button fx:id="Search1" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" onAction="#editSelected" text="Edit" />
-                  <Button fx:id="Search11" layoutX="14.0" layoutY="118.0" mnemonicParsing="false" onAction="#startSearch" text="Remove" />
+                  <TextField fx:id="search" layoutX="14.0" layoutY="24.0" prefHeight="25.0" prefWidth="99.0" />
+                  <Button fx:id="Search" layoutX="68.0" layoutY="56.0" mnemonicParsing="false" onAction="#startSearch" prefHeight="25.0" prefWidth="54.0" text="Search" />
+                  <Button fx:id="edit" layoutX="45.0" layoutY="87.0" mnemonicParsing="false" onAction="#editSelected" text="Edit" />
+                  <Button fx:id="remove" layoutX="34.0" layoutY="121.0" mnemonicParsing="false" onAction="#removeElement" text="Remove" />
+                  <Button fx:id="Search1" layoutX="6.0" layoutY="56.0" mnemonicParsing="false" onAction="#addQuery" prefHeight="25.0" prefWidth="54.0" text="Add" />
                </children></AnchorPane>
             <StackPane>
                <children>
-                  <ScrollPane fx:id="scrollpane" prefViewportHeight="398.0" prefViewportWidth="417.0" visible="false">
+                  <ScrollPane fx:id="scrollpane" prefViewportHeight="398.0" prefViewportWidth="417.0">
                      <content>
                         <TableView fx:id="tableID" editable="true" prefHeight="459.0" prefWidth="1065.0">
                           <columns>
@@ -38,7 +39,7 @@
                         </TableView>
                      </content>
                   </ScrollPane>
-                  <AnchorPane fx:id="personaldetailspanel" prefHeight="398.0" prefWidth="457.0">
+                  <AnchorPane fx:id="personaldetailspanel" prefHeight="398.0" prefWidth="457.0" visible="false">
                      <children>
                         <VBox layoutX="14.0" layoutY="14.0" prefHeight="395.0" prefWidth="116.0" spacing="20.0">
                            <children>

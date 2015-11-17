@@ -29,9 +29,11 @@ import scalafx.collections.ObservableBuffer
 
 object Main extends JFXApp{
   var user = ObservableBuffer[User]()
-  user += new User("a",null,null,"23",null,null,null,"sadad",null,"1",1000)
-  
-
+  var yo = ObservableBuffer[User]()
+  //var ami= scala.collection.mutable.Map("1" -> 0, "2" -> 1)
+  user += new User("a",null,null,"23",null,null,null,"1995-10-25",null,"1",1000)
+   user += new User("Daa",null,null,"ff",null,null,null,"1995-10-25",null,"2",1000)
+//user += new User("Daa",null,null,"ff",null,null,null,"1995/10/25",null,"3",1000)
   val registrationpagelayout="view/registrationform.fxml".loadFXML();
  val registercontroller=registrationpagelayout.getController[eventhandling.RegistrationLogin#Controller]
  val registrationpage=registrationpagelayout.getRoot[javafx.scene.layout.AnchorPane]
@@ -83,7 +85,7 @@ object Main extends JFXApp{
    
   //def findById(id: Int): Option[User] = user.get(id)
 
-  var counteraccno=2;
+  var counteraccno=3;
   var countertransaction=1;
   var loggedin : Integer = 1;
   //var maps=Map[Int,User]()

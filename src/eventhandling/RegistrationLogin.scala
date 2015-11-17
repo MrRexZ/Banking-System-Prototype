@@ -1,6 +1,6 @@
 package eventhandling
 
-import scalafx.Includes._  
+import scalafx.Includes._   
 import mainclasses._
 import address._
 import scalafx.scene.control._       
@@ -20,7 +20,7 @@ import scalafx.scene.Parent
 import scalafx.scene.layout._
 import scalafx.event.ActionEvent
 import javax.swing.JOptionPane;
-
+import java.time.LocalDate
 
 @sfxml
 class RegistrationLogin(
@@ -63,7 +63,7 @@ class RegistrationLogin(
    else if (r_fname.text.value=="" || r_lname.text.value=="") JOptionPane.showMessageDialog(null, "Please enter your first name and/or last name");
    else {Main.user += new User(r_username.text.value,r_password.text.value, r_fname.text.value, r_lname.text.value,r_address.text.value,r_contactnum.text.value,gender,r_dob.getValue().toString(),r_nation.text.value,Main.counteraccno.toString(),1000)
     Main.counteraccno=Main.counteraccno+1
-   println(r_dob)
+
     Main.roots.setCenter(Main.mainpage)}
 
     }
@@ -72,7 +72,7 @@ class RegistrationLogin(
       for (y <- 0 until Main.user.length) {
         if (Main.user(y).u_uname == log_username.text.value){
        //Main.controller.displayusername.setText("Welcome " + log_username.text.value)
-          Main.usercontroller.displayusername.text="Welcome " + log_username.text.value
+          Main.usercontroller.displayusername.text="Welcome " + log_username.text.value + LocalDate.now
          Main.loggedin=y
           Main.roots.setCenter(Main.userpageroot)
         }
@@ -81,7 +81,12 @@ class RegistrationLogin(
       
       for (y <- 0 until Main.admin.length) {
         if (Main.admin(y).s_uname == log_username.text.value){
+          Main.admincontroller.tableID.items=null
+          Main.admincontroller.tableID.items=Main.user
                   Main.roots.setCenter(Main.adminroot)
+                  Main.admincontroller.personaldetailspanel.visible=false
+                  Main.admincontroller.scrollpane.visible=true
+             
         }
       }
     }
