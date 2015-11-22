@@ -1,7 +1,7 @@
 package eventhandling
-import scalafx.Includes._     
+import scalafx.Includes._       
 import scalafxml.core.macros.sfxml  
-import scalafx.scene.control.{Label,TextField,TableView,TableColumn,Alert,ScrollPane,DatePicker,TextArea,PasswordField}
+import scalafx.scene.control.{Label,TextField,TableView,TableColumn,Alert,ScrollPane,DatePicker,TextArea,PasswordField,CheckBox,RadioButton}
 import mainclasses._
 import address._
 import scalafx.Includes._
@@ -16,7 +16,7 @@ import scalafx.scene.layout.AnchorPane
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import scala.collection.mutable.ArrayBuffer
-
+ 
 
 @sfxml
 class AdminEventController(
@@ -32,6 +32,7 @@ class AdminEventController(
      var col_dob: TableColumn[User,String],
      var col_nation : TableColumn[User,String],
      var col_accno : TableColumn[User,String],
+     var col_status : TableColumn[User,String],
      var scrollpane : ScrollPane,
      var search: TextField,
      
@@ -54,7 +55,16 @@ class AdminEventController(
     var edit_address : TextArea,
     var edit_contactno : TextField,
     var edit_uname : TextField,
-    var edit_password :TextField   ) {
+    var edit_password :TextField,  
+    
+    private var fil_uname : CheckBox,
+    private var fil_password : CheckBox,
+    private var fil_nation : CheckBox,
+    private var fil_fname : CheckBox,
+    private var fil_lname : CheckBox,
+    private var fil_status : CheckBox,
+    private var r_and : RadioButton,
+    private var r_or : RadioButton) {
 
     col_uname.cellValueFactory = {_.value.userName}
     col_balance.cellValueFactory = {_.value.balance}
@@ -68,6 +78,7 @@ class AdminEventController(
     col_nation.cellValueFactory = {_.value.nation}
     col_accno.cellValueFactory = {_.value.accno}
     col_gender.cellValueFactory = {_.value.gender}
+    col_status.cellValueFactory = {_.value.status}
     
     var searchQuery=ArrayBuffer[String]()
     
@@ -99,33 +110,32 @@ col_uname.onEditCommit = (evt: CellEditEvent[User, String]) => {
     
    */ 
 def startSearch(e :ActionEvent ) {
+  var tempType = ArrayBuffer[Tuple2[String,User]]()
+       for (counter <- Main.user){
+   if (fil_uname.selected.value==true)
+       tempType += ((counter.u_uname,counter))
+   if (fil_password.selected.value==true)
+     tempType += ((counter.u_password,counter))
+   if (fil_nation.selected.value==true)
+    tempType += ((counter.u_nation,counter))
+   if (fil_fname.selected.value==true)
+    tempType += ((counter.u_fname,counter))
+   if (fil_lname.selected.value==true)
+    tempType += ((counter.u_lname,counter))
+   if (fil_status.selected.value==true)
+    tempType += ((counter.p_status,counter))
+   }
   
-    if (search.text.value!="")
-     searchQuery += search.text.value
-      tableID.items=null
-      var filtered=scala.collection.mutable.Map[Int,Int]()
-     var duplicate=false
-      var tempCollections =ObservableBuffer[User]()
-      var copyUser= ObservableBuffer[User]()
-      Main.user.copyToBuffer(tempCollections)
-     // println(copyUser.length)
-     for (loop <- 0 to searchQuery.length-1){
-      for (counter <- 0 to copyUser.length-1){
-        if (searchQuery(loop).length<=copyUser(counter).u_uname.length){
-          if (searchQuery(loop)==copyUser(counter).u_uname.substring(0,searchQuery(loop).length)) 
-            if (filtered.get(counter)==None){
-              tempCollections+=copyUser(counter)
-              filtered += (counter -> counter)
-            }}}
-      copyUser.trimStart(copyUser.length)
-      tempCollections.copyToBuffer(copyUser)
-      filtered.clear()
-     if(loop != searchQuery.length-1)
-      tempCollections.trimStart(tempCollections.length);    
-      
-     }
-              
   
+        searchQuery += search.text.value
+   if (r_or.selected.value==true)
+     searchOR(tempType);
+   if (r_and.selected.value==true)
+      searchAND(tempType);
+ 
+
+  
+
     /* VERSION 2            if (search.text.value!="")
      searchQuery += search.text.value
       tableID.items=null
@@ -148,7 +158,6 @@ def startSearch(e :ActionEvent ) {
             else tempCollections += Main.user(counter)      
          */        
    
-       tableID.items=tempCollections
 
    /* VERSION 1  var filtered=ArrayBuffer[Int]()
      var ta=0
@@ -182,9 +191,120 @@ def startSearch(e :ActionEvent ) {
 
        tableID.items=tempCollections*/
     }
+def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
+      tableID.items=null
+     var filtered=scala.collection.mutable.Map[User,Int]()
+      var tempCollections =ObservableBuffer[User]()
+      var tempDetails = ObservableBuffer[String]()
 
-def searchAlgorithm(x : String){
-
+     for (counter <- 0 to copyUser.length-1){   
+      for (loop <- 0 to searchQuery.length-1){ 
+        if (searchQuery(loop).length <= copyUser(counter)._1.length){   
+          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length))
+          if (filtered.get(copyUser(counter)._2)==None){
+              tempCollections+=copyUser(counter)._2
+            filtered += (copyUser(counter)._2 -> counter)
+            }}}
+  
+     }
+    
+      
+       tableID.items=tempCollections
+       
+}
+def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
+  
+      tableID.items=null
+     var filtered=scala.collection.mutable.Map[User,Int]()
+      var tempCollections =ObservableBuffer[User]()
+      var tempDetails = ObservableBuffer[String]()
+     for (counter <- 0 to copyUser.length-1){   
+      for (loop <- 0 to searchQuery.length-1){ 
+        if (searchQuery(loop).length <= copyUser(counter)._1.length){   
+          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length))
+       /*   if (filtered.get(copyUser(counter)._2).==None)*/{
+              tempCollections+=copyUser(counter)._2
+         //    filtered += (copyUser(counter)._2 -> counter)
+            }}}
+  
+     }
+      
+      filtered.clear()
+   var chosen = ObservableBuffer[User]()
+   var counter=0
+   println(tempCollections)
+     for (outer <- tempCollections.length-1 to 0 by -1){
+       for (inner <- outer-1 to 0 by -1){
+         if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))==None)
+           filtered += (tempCollections(inner) -> 0)
+          else if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))!=None)
+            filtered(tempCollections(inner)) += 1
+           if (tempCollections(outer) == tempCollections(inner) && filtered(tempCollections(inner))==searchQuery.length-1)
+             chosen+=tempCollections(inner)
+       } 
+       counter=0
+     }
+      println(filtered)
+       tableID.items=chosen
+       
+       
+       
+  /*
+       searchQuery += search.text.value
+      tableID.items=null
+      var filtered=scala.collection.mutable.Map[Int,Int]()
+      var tempCollections =ObservableBuffer[User]()
+      var tempDetails = ObservableBuffer[String]()
+     // var copyUser= ObservableBuffer[User]()
+      // Main.user.copyToBuffer(copyUser)
+      
+     for (loop <- 0 to searchQuery.length-1){
+      for (counter <- 0 to copyUser.length-1){      
+        if (searchQuery(loop).length <= copyUser(counter)._1.length){   
+          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length)) 
+            if (filtered.get(counter)==None){
+              tempCollections+=copyUser(counter)._2
+              tempDetails+=copyUser(counter)._1
+              filtered += (counter -> counter)
+            }}}
+      copyUser.trimStart(copyUser.length)
+      for (y <- 0 to tempCollections.length-1)
+        copyUser += ((tempDetails(y),tempCollections(y))) 
+      println(copyUser.length)
+      filtered.clear()
+   
+     if(loop != searchQuery.length-1)
+      tempCollections.trimStart(tempCollections.length)
+     }
+    
+       tableID.items=tempCollections
+     */  
+ /* if (search.text.value!="")
+     searchQuery += search.text.value
+     println(searchQuery.length)
+      tableID.items=null
+      var filtered=scala.collection.mutable.Map[Int,Int]()
+      var tempCollections =ObservableBuffer[User]()
+      var copyUser= ObservableBuffer[User]()
+      // Main.user.copyToBuffer(copyUser)
+     for (loop <- 0 to searchQuery.length-1){
+      for (counter <- 0 to copyUser.length-1){      
+        if (searchQuery(loop).length<=copyUser(counter).u_uname.length){   
+          if (searchQuery(loop)==copyUser(counter).u_uname.substring(0,searchQuery(loop).length)) 
+            if (filtered.get(counter)==None){
+              tempCollections+=copyUser(counter)
+              filtered += (counter -> counter)
+            }}}
+      copyUser.trimStart(copyUser.length)
+      tempCollections.copyToBuffer(copyUser)
+      filtered.clear()
+   
+     if(loop != searchQuery.length-1)
+      tempCollections.trimStart(tempCollections.length)
+     }
+    
+       tableID.items=tempCollections
+       */
 }
  def refresh(e : ActionEvent) {
    
@@ -203,6 +323,7 @@ def searchAlgorithm(x : String){
       Main.user(ArrayIndex).balance.value=Main.user(ArrayIndex).u_balance.toString()
       Main.user(ArrayIndex).dob.value=Main.user(ArrayIndex).u_dob
       Main.user(ArrayIndex).gender.value=Main.user(ArrayIndex).u_gender
+      Main.user(ArrayIndex).status.value=Main.user(ArrayIndex).p_status
  }
     def confirmChanges(e :ActionEvent) { 
       

@@ -22,6 +22,7 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
   val balance=new StringProperty(this, "balance", u_balance.toString)
   val dob=new StringProperty(this, "dob", u_dob.toString)
   val gender=new StringProperty(this, "gender", u_gender)
+  var status = new StringProperty(this, "status", p_status)
   //  userName.set(s)
   //}
   def rebind() {
@@ -118,7 +119,8 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
       u_balance=u_balance-500
       premiumAcc=new PremiumAccount(u_uname ,u_password ,u_fname, u_lname,u_address,u_contact,u_dob,u_nation)
       normalAcc=null
-      
+      p_status= "Premium User"
+      Main.admincontroller.updateTable(Main.user.indexWhere( _.u_accno == u_accno))
       }
     else JOptionPane.showMessageDialog(null, "Not enough balance, you have " + u_balance + "in your account at the moment");
     
