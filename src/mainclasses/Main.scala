@@ -34,7 +34,6 @@ object Main extends JFXApp{
   yo+= "b"
   yo.remove(0)
   println(yo(0))
-  println
   //var ami= scala.collection.mutable.Map("1" -> 0, "2" -> 1)
   user += new User("AnthonyTe","SD","Tjuatja","23",null,null,null,"1995-10-25",null,"1",1000)
    user += new User("AnthonyT","HAHA","Test","23",null,null,null,"3455-10-25",null,"3",1000)

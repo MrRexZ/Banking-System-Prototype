@@ -221,31 +221,43 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
      for (counter <- 0 to copyUser.length-1){   
       for (loop <- 0 to searchQuery.length-1){ 
         if (searchQuery(loop).length <= copyUser(counter)._1.length){   
-          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length))
-       /*   if (filtered.get(copyUser(counter)._2).==None)*/{
-              tempCollections+=copyUser(counter)._2
-         //    filtered += (copyUser(counter)._2 -> counter)
-            }}}
+          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length)){
+          if (filtered.get(copyUser(counter)._2)==None){
+            filtered += (copyUser(counter)._2 -> 0)
+            }
+          else if (filtered.get(copyUser(counter)._2)!=None) {
+              filtered(copyUser(counter)._2) += 1
+          }
+          if (filtered(copyUser(counter)._2)==searchQuery.length-1)
+            tempCollections += copyUser(counter)._2
+          }
+          }
+        }
   
      }
       
-      filtered.clear()
+     filtered.clear()
    var chosen = ObservableBuffer[User]()
    var counter=0
    println(tempCollections)
+/*
+    if (searchQuery.length!=1)
      for (outer <- tempCollections.length-1 to 0 by -1){
        for (inner <- outer-1 to 0 by -1){
-         if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))==None)
+         if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))==None){
            filtered += (tempCollections(inner) -> 0)
-          else if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))!=None)
+         }
+          else if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))!=None){
             filtered(tempCollections(inner)) += 1
-           if (tempCollections(outer) == tempCollections(inner) && filtered(tempCollections(inner))==searchQuery.length-1)
+            
+           if (tempCollections(outer) == tempCollections(inner) && filtered(tempCollections(inner))==searchQuery.length-2)
              chosen+=tempCollections(inner)
        } 
        counter=0
-     }
-      println(filtered)
-       tableID.items=chosen
+     } 
+      
+     */
+       tableID.items=tempCollections
        
        
        
