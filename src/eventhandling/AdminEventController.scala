@@ -125,8 +125,7 @@ def startSearch(e :ActionEvent ) {
    if (fil_status.selected.value==true)
     tempType += ((counter.p_status,counter))
    }
-  
-  
+  println(tempType)
         searchQuery += search.text.value
    if (r_or.selected.value==true)
      searchOR(tempType);
