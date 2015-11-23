@@ -81,6 +81,7 @@ class AdminEventController(
     col_status.cellValueFactory = {_.value.status}
     
     var searchQuery=ArrayBuffer[String]()
+    var tempCollections =ObservableBuffer[User]()
     
     tableID.items=Main.user
     scrollpane.fitToHeight=true
@@ -193,8 +194,7 @@ def startSearch(e :ActionEvent ) {
 def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
       tableID.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
-      var tempCollections =ObservableBuffer[User]()
-      var tempDetails = ObservableBuffer[String]()
+    //  var tempCollections =ObservableBuffer[User]()
 
      for (counter <- 0 to copyUser.length-1){   
       for (loop <- 0 to searchQuery.length-1){ 
@@ -206,7 +206,6 @@ def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
             }}}
   
      }
-    
       
        tableID.items=tempCollections
        
@@ -215,8 +214,6 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
   
       tableID.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
-      var tempCollections =ObservableBuffer[User]()
-      var tempDetails = ObservableBuffer[String]()
      for (counter <- 0 to copyUser.length-1){   
       for (loop <- 0 to searchQuery.length-1){ 
         if (searchQuery(loop).length <= copyUser(counter)._1.length){   
@@ -238,7 +235,7 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
      filtered.clear()
    var chosen = ObservableBuffer[User]()
    var counter=0
-   println(tempCollections)
+       tableID.items=tempCollections
 /*
     if (searchQuery.length!=1)
      for (outer <- tempCollections.length-1 to 0 by -1){
@@ -256,7 +253,6 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
      } 
       
      */
-       tableID.items=tempCollections
        
        
        
@@ -318,11 +314,12 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
        */
 }
  def refresh(e : ActionEvent) {
-   
+   tableID.items=Main.user
+   tempCollections.clear()
+   searchQuery.clear()
  }
  
  def updateTable(ArrayIndex : Int) {
-   
       Main.user(ArrayIndex).userName.value=Main.user(ArrayIndex).u_uname
       Main.user(ArrayIndex).firstName.value=Main.user(ArrayIndex).u_fname
       Main.user(ArrayIndex).lastName.value=Main.user(ArrayIndex).u_lname
@@ -360,8 +357,9 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
     }
     
     def removeElement (e : ActionEvent) {
-         Main.user.remove(Main.user.indexWhere( _.u_accno == selectedAcc))
-         
+        Main.user.remove(Main.user.indexWhere( _.u_accno == selectedAcc))
+        if (tempCollections.length>0)
+         tableID.items().remove(tempCollections.indexWhere( _.u_accno == selectedAcc))
          
      /* var counter=0   
       while (Main.user(counter).u_accno!=selectedAcc)     

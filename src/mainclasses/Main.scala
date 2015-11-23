@@ -37,8 +37,8 @@ object Main extends JFXApp{
   //var ami= scala.collection.mutable.Map("1" -> 0, "2" -> 1)
   user += new User("AnthonyTe","SD","Tjuatja","23",null,null,null,"1995-10-25",null,"1",1000)
    user += new User("AnthonyT","HAHA","Test","23",null,null,null,"3455-10-25",null,"3",1000)
-   user += new User("Daa","yo",null,"ff",null,null,null,"3445-10-25",null,"2",1000)
-   user += new User("a","s",null,"23",null,null,null,"3455-10-25",null,"3",1000)
+   user += new User("Daa","yo","lol","ff",null,null,null,"3445-10-25",null,"2",1000)
+   user += new User("a","s","haha","23",null,null,null,"3455-10-25",null,"3",1000)
   user += new User("AnthonyTE","Sur","Test","23",null,null,null,"3455-10-25",null,"5",1000)
 user += new User("AnthonyTE","zz","Test","23",null,null,null,"3455-10-25",null,"7",1000)
 
