@@ -29,11 +29,6 @@ import scalafx.collections.ObservableBuffer
 
 object Main extends JFXApp{
   var user = ObservableBuffer[User]()
-  var yo = ObservableBuffer[String]()
-  yo+= "a"
-  yo+= "b"
-  yo.remove(0)
-  println(yo(0))
   //var ami= scala.collection.mutable.Map("1" -> 0, "2" -> 1)
   user += new User("AnthonyTe","SD","Tjuatja","23",null,null,null,"1995-10-25",null,"1",1000)
    user += new User("AnthonyT","HAHA","Test","23",null,null,null,"3455-10-25",null,"3",1000)

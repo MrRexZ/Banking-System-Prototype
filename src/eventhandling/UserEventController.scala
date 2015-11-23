@@ -18,7 +18,7 @@ class UserEventController(
     var balance : Label,
     
     
-    var transferpane : AnchorPane,
+    private var transferpane : AnchorPane,
     var enter_targetacc: TextField,
     var enter_amount: TextField,
     var display_balance : Label,
@@ -54,6 +54,9 @@ class UserEventController(
     
     var upgradepane : AnchorPane,
     var loanpane : AnchorPane,
+    
+    private var amountborrow : TextField,
+    private var time : TextField,
     var aboutpane : AnchorPane
     ) {
   
@@ -168,12 +171,12 @@ class UserEventController(
     if (Main.user(Main.loggedin).premiumAcc!=null) {
       Main.enable(loanpane)
       Main.disable(transferpane,balancepane,aboutpane,upgradepane,personaldetailspane)
-    }
+   }
     else JOptionPane.showMessageDialog(null, "Please upgrade your account to premium to use this feature!");  
   }
   
   def confirmLoan(e : ActionEvent) {
-    
+       Main.user(Main.loggedin).calculateLoan(amountborrow.text.value.toDouble,5.toDouble,time.text.value.toInt)
   }
   def showCredits(e : ActionEvent){
       Main.enable(aboutpane)

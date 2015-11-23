@@ -74,7 +74,7 @@
             </AnchorPane>
             <StackPane fx:id="rightstackpane" layoutX="120.0" layoutY="131.0" prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <AnchorPane fx:id="loanpane" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane fx:id="aboutpane" prefHeight="200.0" prefWidth="200.0" />
                   <AnchorPane fx:id="upgradepane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <Label layoutX="117.0" layoutY="24.0" prefHeight="58.0" prefWidth="201.0" text="Upgrade Account">
@@ -207,7 +207,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="aboutpane" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane fx:id="loanpane" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="23.0" layoutY="67.0" text="Amount" />
                         <Label layoutX="22.0" layoutY="96.0" text="Time" />

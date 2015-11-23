@@ -7,7 +7,7 @@ import scalafx.beans.property.{ObjectProperty, StringProperty}
 import Main.{usercontroller => form, admincontroller => admineditform}
 import javax.swing.JOptionPane;
 
-class User(var u_uname : String,var u_password : String,var u_fname : String = null, var u_lname: String= null, var u_address : String=null,var u_contact : String=null,var u_gender : String=null,var u_dob : String = null,var u_nation : String=null,var u_accno : String, var u_balance : Int) extends Person(u_fname,u_lname,u_address,u_gender: String, "Normal User") {
+class User(var u_uname : String,var u_password : String,var u_fname : String = null, var u_lname: String= null, var u_address : String=null,var u_contact : String=null,var u_gender : String=null,var u_dob : String = null,var u_nation : String=null,var u_accno : String, var u_balance : Double) extends Person(u_fname,u_lname,u_address,u_gender: String, "Normal User") {
 
   var normalAcc=new NormalAccount(u_uname,u_fname,u_lname,u_address,u_contact,u_dob,u_nation)
   var premiumAcc : PremiumAccount=null
@@ -32,6 +32,14 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
      u_balance= u_balance - Main.usercontroller.display_amount.text.value.substring(8).toInt
      ano_user.u_balance=ano_user.u_balance + Main.usercontroller.display_amount.text.value.substring(8).toInt
   }
+  
+  def calculateLoan(principal : Double, interestinc : Double,time : Int){
+    if (time!=0) calculateLoan(principal*((interestinc/100)+1),interestinc,time-1)
+    else {
+      u_balance = u_balance+principal
+      balance.value=u_balance.toString()
+  }
+ }
   
   def updateInfo( a : eventhandling.UserEventController#Controller){
     u_fname= checkIfEmpty(form.edit_fname.text.value,u_fname)

@@ -126,14 +126,11 @@ def startSearch(e :ActionEvent ) {
    if (fil_status.selected.value==true)
     tempType += ((counter.p_status,counter))
    }
-  println(tempType)
         searchQuery += search.text.value
    if (r_or.selected.value==true)
      searchOR(tempType);
    if (r_and.selected.value==true)
       searchAND(tempType);
- 
-
   
 
     /* VERSION 2            if (search.text.value!="")
@@ -194,19 +191,17 @@ def startSearch(e :ActionEvent ) {
 def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
       tableID.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
-    //  var tempCollections =ObservableBuffer[User]()
+     var tempCollections =ObservableBuffer[User]()
 
-     for (counter <- 0 to copyUser.length-1){   
-      for (loop <- 0 to searchQuery.length-1){ 
+     for (counter <- 0 to copyUser.length-1)  
+      for (loop <- 0 to searchQuery.length-1)
         if (searchQuery(loop).length <= copyUser(counter)._1.length){   
           if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length))
           if (filtered.get(copyUser(counter)._2)==None){
               tempCollections+=copyUser(counter)._2
             filtered += (copyUser(counter)._2 -> counter)
-            }}}
-  
-     }
-      
+            }
+          }   
        tableID.items=tempCollections
        
 }
@@ -214,24 +209,16 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
   
       tableID.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
-     for (counter <- 0 to copyUser.length-1){   
-      for (loop <- 0 to searchQuery.length-1){ 
-        if (searchQuery(loop).length <= copyUser(counter)._1.length){   
+     for (counter <- 0 to copyUser.length-1)
+      for (loop <- 0 to searchQuery.length-1) 
+        if (searchQuery(loop).length <= copyUser(counter)._1.length)  
           if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length)){
-          if (filtered.get(copyUser(counter)._2)==None){
-            filtered += (copyUser(counter)._2 -> 0)
-            }
-          else if (filtered.get(copyUser(counter)._2)!=None) {
-              filtered(copyUser(counter)._2) += 1
-          }
-          if (filtered(copyUser(counter)._2)==searchQuery.length-1)
-            tempCollections += copyUser(counter)._2
-          }
-          }
-        }
-  
-     }
-      
+            
+          if (filtered.get(copyUser(counter)._2)==None)      filtered += (copyUser(counter)._2 -> 0)   
+          else if (filtered.get(copyUser(counter)._2)!=None) filtered(copyUser(counter)._2) += 1
+
+          if (filtered(copyUser(counter)._2)==searchQuery.length-1) tempCollections += copyUser(counter)._2
+          } 
      filtered.clear()
    var chosen = ObservableBuffer[User]()
    var counter=0
