@@ -94,7 +94,7 @@ class AdminEventController(
     col_accno.cellValueFactory = {_.value.accno}
     col_gender.cellValueFactory = {_.value.gender}
     col_status.cellValueFactory = {_.value.status}
-    col_debt.cellValueFactory = {_.value.debtPr}
+   // col_debt.cellValueFactory = {_.value.debtPr}
     
     col_transactionno.cellValueFactory = {_.value.noTr}
     col_transactionamount.cellValueFactory = {_.value.amountTr}
