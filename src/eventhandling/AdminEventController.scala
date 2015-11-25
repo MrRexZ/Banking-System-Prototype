@@ -20,9 +20,8 @@ import scala.collection.mutable.ArrayBuffer
 
 @sfxml
 class AdminEventController(
-    var tempo : Label,
+    var querydisplay : Label,
     var queryScrollPane : ScrollPane,
-    var testaj : AnchorPane,
     
     var tableID: TableView[User],
     var col_uname : TableColumn[User,String],
@@ -37,6 +36,7 @@ class AdminEventController(
      var col_nation : TableColumn[User,String],
      var col_accno : TableColumn[User,String],
      var col_status : TableColumn[User,String],
+     var col_debt : TableColumn[User,String],
      var userScrollPane : ScrollPane,
      
      
@@ -49,7 +49,6 @@ class AdminEventController(
      
      
      var search: TextField,
-     
      
      
 
@@ -95,7 +94,7 @@ class AdminEventController(
     col_accno.cellValueFactory = {_.value.accno}
     col_gender.cellValueFactory = {_.value.gender}
     col_status.cellValueFactory = {_.value.status}
-    
+    col_debt.cellValueFactory = {_.value.debtPr}
     
     col_transactionno.cellValueFactory = {_.value.noTr}
     col_transactionamount.cellValueFactory = {_.value.amountTr}
@@ -109,112 +108,34 @@ class AdminEventController(
     userScrollPane.fitToHeight=true
     userScrollPane.fitToWidth=true
     transactionScrollPane.fitToHeight=true
-    queryScrollPane.fitToWidth=true
+    
   tableID.editable=true
   var selectedAcc : String=null;
 tableID.selectionModel().selectedItem.onChange(
      (_, _, newValue) => selectedAcc=newValue.u_accno)
-  /* tableID.selectionModel().selectedItem.onChange(
-      (_, _, newValue) => {col_uname.setCellFactory(TextFieldTableCell.forTableColumn());
-      Main.user(0).u_uname=newValue.u_uname
-      println(newValue.u_uname)
-      col_uname.setCellFactory(TextFieldTableCell.forTableColumn())}
-    )
-   col_uname.cellFactory = _ => new TextFieldTableCell[Person, String] (new DefaultStringConverter())
 
-//tableID.selectionModel().selectedItem.onChange((_, _, newValue) => col_uname.setCellFactory(TextFieldTableCell.forTableColumn()))
-//col_uname.cellFactory = _ => new TextFieldTableCell[User, String] (new DefaultStringConverter())  
-
-col_uname.onEditCommit = (evt: CellEditEvent[User, String]) => { 
-    println("hoi")
-    val person = evt.rowValue
-    val newLastNameVal = evt.newValue
-    // Update current person data set
-    person.u_uname = newLastNameVal}
-    
-   */ 
 def startSearch(e :ActionEvent ) {
   if (searchQuery.length>0){
   var tempType = ArrayBuffer[Tuple2[String,User]]()
        for (counter <- Main.user){
-   if (fil_uname.selected.value==true)
-       tempType += ((counter.u_uname,counter))
-   if (fil_password.selected.value==true)
-     tempType += ((counter.u_password,counter))
-   if (fil_nation.selected.value==true)
-    tempType += ((counter.u_nation,counter))
-   if (fil_fname.selected.value==true)
-    tempType += ((counter.u_fname,counter))
-   if (fil_lname.selected.value==true)
-    tempType += ((counter.u_lname,counter))
-   if (fil_status.selected.value==true)
-    tempType += ((counter.p_status,counter))
+   if (fil_uname.selected.value==true)    tempType += ((counter.u_uname,counter))
+   if (fil_password.selected.value==true) tempType += ((counter.u_password,counter))
+   if (fil_nation.selected.value==true)   tempType += ((counter.u_nation,counter))
+   if (fil_fname.selected.value==true)    tempType += ((counter.u_fname,counter))
+   if (fil_lname.selected.value==true)    tempType += ((counter.u_lname,counter))
+   if (fil_status.selected.value==true)   tempType += ((counter.p_status,counter))
    }
    if (r_or.selected.value==true)
      searchOR(tempType);
    if (r_and.selected.value==true)
       searchAND(tempType);
   }
-
-    /* VERSION 2            if (search.text.value!="")
-     searchQuery += search.text.value
-      tableID.items=null
-      var filtered=ArrayBuffer[Int]()
-     var duplicate=false
-      var tempCollections =ObservableBuffer[User]()
-      var copyUser = Main.user
-     for (loop <- 0 to searchQuery.length-1)
-      for (counter <- 0 to Main.user.length-1)
-        if (searchQuery(loop).length<=Main.user(counter).u_uname.length)
-          if (searchQuery(loop)==Main.user(counter).u_uname.substring(0,searchQuery(loop).length)) 
-            if (tempCollections.length!=0){
-             for (innerloop <- 0 to tempCollections.length-1)
-               if (tempCollections(innerloop)==Main.user(counter))
-                 duplicate=true
-                 
-             if (duplicate==false) tempCollections += Main.user(counter)
-             duplicate=false
-            }
-            else tempCollections += Main.user(counter)      
-         */        
-   
-
-   /* VERSION 1  var filtered=ArrayBuffer[Int]()
-     var ta=0
-      var tempCollections =ObservableBuffer[User]()
-      for (counter <- 0 to Main.user.length-1)
-        for (loop <- 0 to searchQuery.length-1)
-        if (searchQuery(loop).length<=Main.user(counter).u_uname.length)
-          if (searchQuery(loop)==Main.user(counter).u_uname.substring(0,searchQuery(loop).length)) 
-            if (filtered.length!=0){
-            for (x <- 0 to filtered.length-1)    {   
-              if (filtered(x)==counter){
-                ta=1
-              }
-              }
-            if (ta!=1) {
-                tempCollections += Main.user(counter);
-                filtered+=counter
-                }
-            ta=0
-            }
-            else {tempCollections += Main.user(counter);
-                  filtered+=counter}
-            */
-
-  /*       tableID.items=null
-      var tempCollections =ObservableBuffer[User]()
-      for (counter <- 0 to Main.user.length-1)
-        if (search.text.value.length<=Main.user(counter).u_uname.length)
-          if (search.text.value==Main.user(counter).u_uname.substring(0,search.text.value.length))
-            tempCollections += Main.user(counter)
-
-       tableID.items=tempCollections*/
-    }
+ }
 def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
+  
       tableID.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
-     var tempCollections =ObservableBuffer[User]()
+     var tempCollections = ObservableBuffer[User]()
 
      for (counter <- 0 to copyUser.length-1)  
       for (loop <- 0 to searchQuery.length-1)
@@ -246,88 +167,14 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
             tempCollections += copyUser(counter)._2
           } 
      filtered.clear()
-       tableID.items=tempCollections
-/*
-    if (searchQuery.length!=1)
-     for (outer <- tempCollections.length-1 to 0 by -1){
-       for (inner <- outer-1 to 0 by -1){
-         if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))==None){
-           filtered += (tempCollections(inner) -> 0)
-         }
-          else if (tempCollections(outer) == tempCollections(inner) && filtered.get(tempCollections(inner))!=None){
-            filtered(tempCollections(inner)) += 1
-            
-           if (tempCollections(outer) == tempCollections(inner) && filtered(tempCollections(inner))==searchQuery.length-2)
-             chosen+=tempCollections(inner)
-       } 
-       counter=0
-     } 
-      
-     */
-       
-       
-       
-  /*
-       searchQuery += search.text.value
-      tableID.items=null
-      var filtered=scala.collection.mutable.Map[Int,Int]()
-      var tempCollections =ObservableBuffer[User]()
-      var tempDetails = ObservableBuffer[String]()
-     // var copyUser= ObservableBuffer[User]()
-      // Main.user.copyToBuffer(copyUser)
-      
-     for (loop <- 0 to searchQuery.length-1){
-      for (counter <- 0 to copyUser.length-1){      
-        if (searchQuery(loop).length <= copyUser(counter)._1.length){   
-          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length)) 
-            if (filtered.get(counter)==None){
-              tempCollections+=copyUser(counter)._2
-              tempDetails+=copyUser(counter)._1
-              filtered += (counter -> counter)
-            }}}
-      copyUser.trimStart(copyUser.length)
-      for (y <- 0 to tempCollections.length-1)
-        copyUser += ((tempDetails(y),tempCollections(y))) 
-      println(copyUser.length)
-      filtered.clear()
-   
-     if(loop != searchQuery.length-1)
-      tempCollections.trimStart(tempCollections.length)
-     }
-    
-       tableID.items=tempCollections
-     */  
- /* if (search.text.value!="")
-     searchQuery += search.text.value
-     println(searchQuery.length)
-      tableID.items=null
-      var filtered=scala.collection.mutable.Map[Int,Int]()
-      var tempCollections =ObservableBuffer[User]()
-      var copyUser= ObservableBuffer[User]()
-      // Main.user.copyToBuffer(copyUser)
-     for (loop <- 0 to searchQuery.length-1){
-      for (counter <- 0 to copyUser.length-1){      
-        if (searchQuery(loop).length<=copyUser(counter).u_uname.length){   
-          if (searchQuery(loop)==copyUser(counter).u_uname.substring(0,searchQuery(loop).length)) 
-            if (filtered.get(counter)==None){
-              tempCollections+=copyUser(counter)
-              filtered += (counter -> counter)
-            }}}
-      copyUser.trimStart(copyUser.length)
-      tempCollections.copyToBuffer(copyUser)
-      filtered.clear()
-   
-     if(loop != searchQuery.length-1)
-      tempCollections.trimStart(tempCollections.length)
-     }
-    
-       tableID.items=tempCollections
-       */
+     tableID.items=tempCollections
+
 }
  def refresh(e : ActionEvent) {
    tableID.items=Main.user
    tempCollections.clear()
    searchQuery.clear()
+   querydisplay.text.value=""
  }
  
  def updateTable(ArrayIndex : Int) {
@@ -381,9 +228,9 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
     
     def addQuery (e :ActionEvent) {
     searchQuery += search.text.value
+    querydisplay.text.value = querydisplay.text.value + search.text.value + ","
     search.clear
-    tempo.text.value = tempo.text.value + search.text.value + ","
-    //testaj.width = 500
+
     }
     
       def openTransactionTable(event: ActionEvent){

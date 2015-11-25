@@ -7,7 +7,7 @@ import scalafx.beans.property.{ObjectProperty, StringProperty}
 import Main.{usercontroller => form, admincontroller => admineditform}
 import javax.swing.JOptionPane;
 
-class User(var u_uname : String,var u_password : String,var u_fname : String = null, var u_lname: String= null, var u_address : String=null,var u_contact : String=null,var u_gender : String=null,var u_dob : String = null,var u_nation : String=null,var u_accno : String, var u_balance : Double) extends Person(u_fname,u_lname,u_address,u_gender: String, "Normal User") {
+class User(var u_uname : String,var u_password : String,var u_fname : String = null, var u_lname: String= null, var u_address : String=null,var u_contact : String=null,var u_gender : String=null,var u_dob : String = null,var u_nation : String=null,var u_accno : String, var u_balance : Double,var debt : Double) extends Person(u_fname,u_lname,u_address,u_gender: String, "Normal User") {
 
   var normalAcc=new NormalAccount(u_uname,u_fname,u_lname,u_address,u_contact,u_dob,u_nation)
   var premiumAcc : PremiumAccount=null
@@ -23,10 +23,8 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
   val dob=new StringProperty(this, "dob", u_dob.toString)
   val gender=new StringProperty(this, "gender", u_gender)
   var status = new StringProperty(this, "status", p_status)
+  var debtPr = new StringProperty(this, "debtProperty", debt.toString())
 
-  def rebind() {
-  userName = new StringProperty(this, "userName", u_uname)
- }
   def transferMoney(ano_user : User) {
      u_balance -= Main.usercontroller.display_amount.text.value.substring(8).toInt
      ano_user.u_balance += Main.usercontroller.display_amount.text.value.substring(8).toInt
@@ -103,7 +101,7 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
   def upgradeUser() {
     if (u_balance>=500) {
       u_balance=u_balance-500
-      premiumAcc=new PremiumAccount(u_uname ,u_password ,u_fname, u_lname,u_address,u_contact,u_dob,u_nation,0)
+      premiumAcc=new PremiumAccount(u_uname ,u_password ,u_fname, u_lname,u_address,u_contact,u_dob,u_nation)
       normalAcc=null
       p_status= "Premium User"
       Main.admincontroller.updateTable(Main.user.indexWhere( _.u_accno == u_accno))

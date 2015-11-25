@@ -29,6 +29,12 @@ import scalafx.collections.ObservableBuffer
 
 object Main extends JFXApp{
   var user = ObservableBuffer[User]()
+ /* user += new User("AnthonyTe","asdadsa","fff","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","0",1000,0)
+  user += new User("Antt","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","1",1000,0)
+ user += new User("asda","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","2",1000,0)
+ user += new User("asdadwqe","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","3",1000,0)
+ user += new User("AnthonyTe","ww","ewqewq","aaaaa","ggg","asdadsa","asdadsa","asdadsa","asdadsa","4",1000,0)
+ */
   var admin= ArrayBuffer[Admin]()
   admin += new Admin("admin","admin","","","","")
   var transactionList= ObservableBuffer[TransactionRecords]()

@@ -13,7 +13,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="478.0" prefWidth="153.0">
                <children>
                   <Button layoutX="13.0" layoutY="430.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-                  <TextField fx:id="search" layoutX="21.0" layoutY="50.0" prefHeight="25.0" prefWidth="99.0" />
+                  <TextField fx:id="search" layoutX="21.0" layoutY="54.0" prefHeight="25.0" prefWidth="99.0" />
                   <Button fx:id="Search" layoutX="70.0" layoutY="87.0" mnemonicParsing="false" onAction="#startSearch" prefHeight="25.0" prefWidth="54.0" text="Search" />
                   <Button fx:id="edit" layoutX="22.0" layoutY="147.0" mnemonicParsing="false" onAction="#editSelected" text="Edit" />
                   <Button fx:id="remove" layoutX="67.0" layoutY="147.0" mnemonicParsing="false" onAction="#removeElement" text="Remove" />
@@ -60,11 +60,11 @@
                         <Font size="9.0" />
                      </font>
                   </Button>
-                  <ScrollPane fx:id="queryScrollPane" layoutX="20.0" layoutY="6.0" prefHeight="36.0" prefWidth="88.0">
+                  <ScrollPane fx:id="queryScrollPane" layoutX="12.0" prefHeight="47.0" prefWidth="99.0">
                     <content>
-                      <AnchorPane fx:id="testaj" minHeight="0.0" minWidth="0.0" prefHeight="39.0" prefWidth="893.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="88.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="tempo" layoutY="-9.0" prefHeight="39.0" prefWidth="89.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0" />
+                              <Label fx:id="querydisplay" layoutX="10.0" layoutY="3.0" prefHeight="17.0" prefWidth="955.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -72,7 +72,7 @@
                </children></AnchorPane>
             <StackPane>
                <children>
-                  <ScrollPane fx:id="userScrollPane" prefHeight="478.0" prefViewportHeight="398.0" prefViewportWidth="417.0" prefWidth="482.0" visible="false">
+                  <ScrollPane fx:id="userScrollPane" prefHeight="478.0" prefViewportHeight="398.0" prefViewportWidth="417.0" prefWidth="482.0">
                      <content>
                         <TableView fx:id="tableID" editable="true" prefHeight="459.0" prefWidth="1065.0">
                           <columns>
@@ -151,9 +151,9 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <ScrollPane fx:id="transactionScrollPane" prefHeight="478.0" prefViewportHeight="398.0" prefViewportWidth="417.0" prefWidth="482.0">
+                  <ScrollPane fx:id="transactionScrollPane" prefHeight="478.0" prefViewportHeight="398.0" prefViewportWidth="417.0" prefWidth="482.0" visible="false">
                      <content>
-                        <TableView fx:id="transactionTable" editable="true" prefHeight="459.0" prefWidth="1065.0" visible="false">
+                        <TableView fx:id="transactionTable" editable="true" prefHeight="459.0" prefWidth="1065.0">
                            <columns>
                               <TableColumn fx:id="col_transactionno" prefWidth="97.0" text="Transaction No" />
                               <TableColumn fx:id="col_transactionamount" prefWidth="123.0" text="Amount" />

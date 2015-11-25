@@ -180,7 +180,9 @@ class UserEventController(
   
   def confirmLoan(e : ActionEvent) {
        Main.user(Main.loggedin).u_balance+=amountborrow.text.value.toDouble 
-       loan_msg.text.value="Loan successful, your debt is now at :" +   Main.user(Main.loggedin).premiumAcc.calculateLoan(amountborrow.text.value.toDouble,6.toDouble,time.text.value.toInt)
+       Main.user(Main.loggedin).debt=Main.user(Main.loggedin).premiumAcc.calculateLoan(amountborrow.text.value.toDouble, 6.toDouble, time.text.value.toInt)
+  
+       loan_msg.text.value = "Loan successful, your debt is now at :" +  Main.user(Main.loggedin).debt 
        amountborrow.clear
        time.clear
   }
