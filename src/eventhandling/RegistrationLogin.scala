@@ -21,7 +21,7 @@ import scalafx.scene.layout._
 import scalafx.event.ActionEvent
 import javax.swing.JOptionPane;
 import java.time.LocalDate
-
+import scala.util.Random
 @sfxml
 class RegistrationLogin(
     var r_fname: TextField,
@@ -77,8 +77,10 @@ class RegistrationLogin(
           Main.roots.setCenter(Main.userpageroot)
           Main.enable(Main.usercontroller.balancepane)
           Main.disable(Main.usercontroller.upgradepane,Main.usercontroller.transferpane,Main.usercontroller.aboutpane,Main.usercontroller.loanpane,Main.usercontroller.personaldetailspane)
-          Main.usercontroller.balance.text.value="Your balance is : "+ Main.user(Main.loggedin).u_balance.toString
+          Main.usercontroller.balance.text="Your balance is : "+ Main.user(Main.loggedin).u_balance.toString
           Main.registercontroller.loginasuser=true
+          //Main.usercontroller.display_loanval.text.value=Random.nextInt(10).toString()
+          Main.generatedRandInterest=Random.nextInt(10)
         }
         
       }

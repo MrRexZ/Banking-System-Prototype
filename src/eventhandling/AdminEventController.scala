@@ -23,10 +23,10 @@ class AdminEventController(
     var querydisplay : Label,
     var queryScrollPane : ScrollPane,
     
-    var tableID: TableView[User],
-    var col_uname : TableColumn[User,String],
-    var col_balance : TableColumn[User,String],
-    var col_fname : TableColumn[User,String],
+     var tableID: TableView[User],
+     var col_uname : TableColumn[User,String],
+     var col_balance : TableColumn[User,String],
+     var col_fname : TableColumn[User,String],
      var col_lname : TableColumn[User,String],
      var col_password : TableColumn[User,String],
      var col_address : TableColumn[User,String],
@@ -36,7 +36,8 @@ class AdminEventController(
      var col_nation : TableColumn[User,String],
      var col_accno : TableColumn[User,String],
      var col_status : TableColumn[User,String],
-     var col_debt : TableColumn[User,String],
+     var col_debt   : TableColumn[User,String],
+     var col_yo : TableColumn[User,String],
      var userScrollPane : ScrollPane,
      
      
@@ -94,7 +95,7 @@ class AdminEventController(
     col_accno.cellValueFactory = {_.value.accno}
     col_gender.cellValueFactory = {_.value.gender}
     col_status.cellValueFactory = {_.value.status}
-   // col_debt.cellValueFactory = {_.value.debtPr}
+    col_debt.cellValueFactory = {_.value.debtPr}
     
     col_transactionno.cellValueFactory = {_.value.noTr}
     col_transactionamount.cellValueFactory = {_.value.amountTr}

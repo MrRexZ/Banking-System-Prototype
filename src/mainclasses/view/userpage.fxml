@@ -218,9 +218,24 @@
                         <Label layoutX="54.0" layoutY="159.0" text="Interest" />
                         <TextField fx:id="amountborrow" layoutX="118.0" layoutY="100.0" />
                         <TextField fx:id="time" layoutX="118.0" layoutY="129.0" />
-                        <Text layoutX="220.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6%" />
                         <Button layoutX="167.0" layoutY="202.0" mnemonicParsing="false" onAction="#confirmLoan" text="Confirm" />
                         <Label fx:id="loan_msg" layoutX="100.0" layoutY="289.0" text="Loan successful, your debt is now at " visible="false" />
+                        <Label layoutX="154.0" layoutY="65.0" text="Loan">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="display_loansuccess" layoutX="25.0" layoutY="254.0" prefHeight="17.0" prefWidth="379.0" text="Loan successfull!" visible="false" />
+                        <Label fx:id="display_loanval" layoutX="188.0" layoutY="159.0" text="6%" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="suc_upgrade" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="32.0" layoutY="67.0" prefHeight="290.0" prefWidth="379.0" text="Congratulations, your account is now upgraded to Premium">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>

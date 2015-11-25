@@ -23,7 +23,7 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
   val dob=new StringProperty(this, "dob", u_dob.toString)
   val gender=new StringProperty(this, "gender", u_gender)
   var status = new StringProperty(this, "status", p_status)
-  var debtPr = new StringProperty(this, "debtProperty", debt.toString())
+  var debtPr = new StringProperty(this, "debtPr", debt.toString)
 
   def transferMoney(ano_user : User) {
      u_balance -= Main.usercontroller.display_amount.text.value.substring(8).toInt
@@ -66,7 +66,6 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
     
     def updateAccount() {
           if (normalAcc!=null){
-      println("normal account detected")
       normalAcc.nu_uname=u_fname
       normalAcc.nu_password=u_password
       normalAcc.nu_nation=u_nation
@@ -77,7 +76,6 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
       normalAcc.nu_address=u_address
     }
           else if (premiumAcc!=null) {
-      println("Premium account detected")
       premiumAcc.pu_uname=u_uname
       premiumAcc.pu_password=u_password
       premiumAcc.pu_nation=u_nation

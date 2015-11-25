@@ -1,10 +1,11 @@
 package eventhandling             
-import scalafxml.core.macros.sfxml    
+
+import scalafx.Includes._
+import scalafxml.core.macros.sfxml     
 import scalafx.scene.control.{Label,TextField,TextArea,DatePicker,PasswordField,Button}
 import scalafx.scene.layout._
 import mainclasses._
 import scalafx.event.ActionEvent
-import scalafx.Includes._
 import scalafx.scene.layout.GridPane
 import scalafx.scene.layout.AnchorPane
 import javax.swing.JOptionPane;
@@ -59,7 +60,12 @@ class UserEventController(
     private var amountborrow : TextField,
     private var time : TextField,
     private var loan_msg : Label,
-     var aboutpane : AnchorPane
+    private var display_loanval : Label,
+    private var display_loansuccess : Label,
+    
+    var aboutpane : AnchorPane,
+     
+    private var suc_upgrade : AnchorPane
     ) {
   
   def checkBalance(e: ActionEvent) {
@@ -105,8 +111,7 @@ class UserEventController(
     enter_amount.clear
     enter_targetacc.clear
     display_balance.text.value="Balance : "+ Main.user(Main.loggedin).u_balance.toString
- //   Main.transactionList(Main.transactionList.length-1).noTr.value=3.toString
-   // println(Main.transactionList(Main.transactionList.length-1).noTr.value)
+
   }
      
 
@@ -126,13 +131,18 @@ class UserEventController(
     pd_password.text.value= ": "+Main.user(Main.loggedin).u_password
     
     }
+  
   def upgradeAccount(event: ActionEvent) {
+    if (Main.user(Main.loggedin).premiumAcc==null){
       Main.enable(upgradepane)
       Main.disable(transferpane,balancepane,aboutpane,loanpane,personaldetailspane)
     }
+    else JOptionPane.showMessageDialog(null, "Your account is already upgraded!");
+ }
   
   def confirmUpgradeAccount(event : ActionEvent) {
-  Main.user(Main.loggedin).upgradeUser()  
+    if (Main.user(Main.loggedin).premiumAcc==null) Main.user(Main.loggedin).upgradeUser()  
+    else JOptionPane.showMessageDialog(null, "Your account is already upgraded!");
   }
   
   def editpersonaldetails (e : ActionEvent) {
@@ -157,16 +167,16 @@ class UserEventController(
     changelabel1.text.value="Password"
   Main.disable(edit_fname,edit_lname,edit_gender,edit_dob,edit_nation,edit_address,edit_contactno,edit_password,edit_confirmpassword)
   Main.enable(pd_fname,pd_lname,pd_gender,pd_dob,pd_nation,pd_address,pd_contactno,pd_uname,pd_password) 
-    pd_fname.text.value= ": "+Main.user(Main.loggedin).u_fname
-    pd_lname.text.value= ": "+Main.user(Main.loggedin).u_lname
+    if ( pd_fname.text.value!="") pd_fname.text.value= ": "+Main.user(Main.loggedin).u_fname
+    if ( pd_lname.text.value!="") pd_lname.text.value= ": "+Main.user(Main.loggedin).u_lname
     pd_gender.text.value= ": "+Main.user(Main.loggedin).u_gender
-    if (pd_dob.text.value!="")
-      pd_dob.text.value= ": "+Main.user(Main.loggedin).u_dob
+   
+    if (pd_dob.text.value!="") pd_dob.text.value= ": "+Main.user(Main.loggedin).u_dob
     pd_nation.text.value= ": "+Main.user(Main.loggedin).u_nation
     pd_address.text.value= ": "+Main.user(Main.loggedin).u_address
     pd_contactno.text.value= ": "+Main.user(Main.loggedin).u_contact
-    pd_uname.text.value=": "+Main.user(Main.loggedin).u_uname
-    pd_password.text.value= ": "+Main.user(Main.loggedin).u_password
+    if ( pd_uname.text.value!="")  pd_uname.text.value=": "+Main.user(Main.loggedin).u_uname
+   if (pd_password.text.value!="")  pd_password.text.value= ": "+Main.user(Main.loggedin).u_password
    Main.admincontroller.updateTable(Main.loggedin)
   }
   
@@ -174,15 +184,19 @@ class UserEventController(
     if (Main.user(Main.loggedin).premiumAcc!=null) {
       Main.enable(loanpane)
       Main.disable(transferpane,balancepane,aboutpane,upgradepane,personaldetailspane)
+      display_loanval.text.value=Main.generatedRandInterest.toString + "%"
    }
     else JOptionPane.showMessageDialog(null, "Please upgrade your account to premium to use this feature!");  
   }
   
   def confirmLoan(e : ActionEvent) {
        Main.user(Main.loggedin).u_balance+=amountborrow.text.value.toDouble 
-       Main.user(Main.loggedin).debt=Main.user(Main.loggedin).premiumAcc.calculateLoan(amountborrow.text.value.toDouble, 6.toDouble, time.text.value.toInt)
+       Main.user(Main.loggedin).debt=Main.user(Main.loggedin).premiumAcc.calculateLoan(amountborrow.text.value.toDouble, display_loanval.text.value.substring(0,1).toDouble, time.text.value.toInt)
   
        loan_msg.text.value = "Loan successful, your debt is now at :" +  Main.user(Main.loggedin).debt 
+       display_loansuccess.visible=true
+       display_loansuccess.text.value=loan_msg.text.value
+       
        amountborrow.clear
        time.clear
   }
@@ -194,5 +208,6 @@ class UserEventController(
     
     Main.registercontroller.loginasuser=false
     Main.roots.setCenter(Main.mainpage)
+    display_loansuccess.visible=false
     }
 }

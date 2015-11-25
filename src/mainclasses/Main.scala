@@ -6,39 +6,33 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.layout.BorderPane
 import scalafx.scene.control.Label
-import scalafx.geometry.Insets
 import scalafx.application.JFXApp  
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import address.util.ResourceLoading._
 import scala.collection.mutable.ArrayBuffer
-import eventhandling._
 import scalafxml.core.{NoDependencyResolver, FXMLLoader}
-import javafx.scene.{control => jfxsc}
-import javafx.scene.{layout => jfxsl}
-import javafx.{event => jfxe}
-import javafx.{fxml => jfxf}
-import javafx.{fxml => jfxf}
-import javafx.{scene => jfxs}
-import javafx.scene.control.SplitPane
 import scalafx.delegate.SFXDelegate
 import scalafx.scene.Node
 import scalafx.scene.layout.AnchorPane
 import scala.collection.mutable.Map
 import scalafx.collections.ObservableBuffer
 
+import scala.util.Random
 object Main extends JFXApp{
   var user = ObservableBuffer[User]()
- /* user += new User("AnthonyTe","asdadsa","fff","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","0",1000,0)
+ // var accnoToindex= Map[User,Int]()
+/*
+  user += new User("AnthonyTe","asdadsa","fff","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","0",1000,0)
   user += new User("Antt","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","1",1000,0)
  user += new User("asda","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","2",1000,0)
  user += new User("asdadwqe","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","3",1000,0)
  user += new User("AnthonyTe","ww","ewqewq","aaaaa","ggg","asdadsa","asdadsa","asdadsa","asdadsa","4",1000,0)
- */
+*/
   var admin= ArrayBuffer[Admin]()
   admin += new Admin("admin","admin","","","","")
   var transactionList= ObservableBuffer[TransactionRecords]()
-
+  var generatedRandInterest=0
  val registrationpagelayout="view/registrationform.fxml".loadFXML();
  val registercontroller=registrationpagelayout.getController[eventhandling.RegistrationLogin#Controller]
  val registrationpage=registrationpagelayout.getRoot[javafx.scene.layout.AnchorPane]

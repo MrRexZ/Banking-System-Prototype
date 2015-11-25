@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
    <children>
       <SplitPane dividerPositions="0.2599388379204893" layoutY="96.0" prefHeight="480.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -72,27 +72,6 @@
                </children></AnchorPane>
             <StackPane>
                <children>
-                  <ScrollPane fx:id="userScrollPane" prefHeight="478.0" prefViewportHeight="398.0" prefViewportWidth="417.0" prefWidth="482.0">
-                     <content>
-                        <TableView fx:id="tableID" editable="true" prefHeight="459.0" prefWidth="1065.0">
-                          <columns>
-                            <TableColumn fx:id="col_uname" prefWidth="72.0" text="Username" />
-                              <TableColumn fx:id="col_balance" prefWidth="72.0" text="Balance" />
-                            <TableColumn fx:id="col_fname" prefWidth="100.0" text="First Name" />
-                              <TableColumn fx:id="col_lname" prefWidth="68.0" text="Last Name" />
-                              <TableColumn fx:id="col_password" prefWidth="70.0" text="Password" />
-                              <TableColumn fx:id="col_address" minWidth="-1.0" prefWidth="200.0" text="Address" />
-                              <TableColumn fx:id="col_contact" minWidth="0.0" prefWidth="120.0" text="Contact" />
-                              <TableColumn fx:id="col_gender" minWidth="0.0" prefWidth="75.0" text="Gender" />
-                              <TableColumn fx:id="col_dob" prefWidth="120.0" text="DOB" />
-                              <TableColumn fx:id="col_nation" prefWidth="120.0" text="Nationality" />
-                              <TableColumn fx:id="col_accno" prefWidth="46.0" text="Account Number" />
-                              <TableColumn fx:id="col_status" prefWidth="46.0" text="Status" />
-                              <TableColumn fx:id="col_debt" prefWidth="46.0" text="Debt" />
-                          </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
                   <AnchorPane fx:id="personaldetailspanel" prefHeight="398.0" prefWidth="457.0" visible="false">
                      <children>
                         <VBox layoutX="14.0" layoutY="14.0" prefHeight="395.0" prefWidth="116.0" spacing="20.0">
@@ -152,15 +131,36 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <ScrollPane fx:id="transactionScrollPane" prefHeight="478.0" prefViewportHeight="398.0" prefViewportWidth="417.0" prefWidth="482.0" visible="false">
+                  <ScrollPane fx:id="transactionScrollPane" prefViewportHeight="398.0" prefViewportWidth="417.0" visible="false">
                      <content>
-                        <TableView fx:id="transactionTable" editable="true" prefHeight="459.0" prefWidth="1065.0">
+                        <TableView fx:id="transactionTable" editable="true">
                            <columns>
                               <TableColumn fx:id="col_transactionno" prefWidth="97.0" text="Transaction No" />
                               <TableColumn fx:id="col_transactionamount" prefWidth="123.0" text="Amount" />
                               <TableColumn fx:id="col_senderno" prefWidth="103.0" text="Sender No" />
                               <TableColumn fx:id="col_receiverno" prefWidth="155.0" text="Recipient No" />
                            </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane fx:id="userScrollPane" prefViewportHeight="398.0" prefViewportWidth="417.0">
+                     <content>
+                        <TableView fx:id="tableID" editable="true">
+                          <columns>
+                            <TableColumn fx:id="col_uname" prefWidth="72.0" text="Username" />
+                              <TableColumn fx:id="col_balance" prefWidth="72.0" text="Balance" />
+                            <TableColumn fx:id="col_fname" prefWidth="100.0" text="First Name" />
+                              <TableColumn fx:id="col_lname" prefWidth="68.0" text="Last Name" />
+                              <TableColumn fx:id="col_password" prefWidth="70.0" text="Password" />
+                              <TableColumn fx:id="col_address" minWidth="-1.0" prefWidth="200.0" text="Address" />
+                              <TableColumn fx:id="col_contact" minWidth="0.0" prefWidth="120.0" text="Contact" />
+                              <TableColumn fx:id="col_gender" minWidth="0.0" prefWidth="75.0" text="Gender" />
+                              <TableColumn fx:id="col_dob" prefWidth="120.0" text="DOB" />
+                              <TableColumn fx:id="col_nation" prefWidth="120.0" text="Nationality" />
+                              <TableColumn fx:id="col_accno" prefWidth="46.0" text="Account Number" />
+                              <TableColumn fx:id="col_status" prefWidth="46.0" text="Status" />
+                              <TableColumn fx:id="col_debt" prefWidth="46.0" text="Debt" />
+                          </columns>
                         </TableView>
                      </content>
                   </ScrollPane>
