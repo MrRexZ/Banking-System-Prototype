@@ -2,7 +2,10 @@
 
 package mainclasses
 
+class Admin(var s_uname : String,var s_password : String ,var s_fname : String , var s_lname: String,var s_gender : String, var s_address : String)  extends Employee(s_fname ,s_lname, s_gender , s_address ) {
 
-class Admin(var s_uname : String =null,var s_fname : String = null, var s_lname: String= null,var s_gender : String=null, var s_address : String=null) extends Person(s_fname,s_lname,s_address,s_gender,"Admin") {
-  
+}
+
+object Admin {
+  var admincounter=1
 }

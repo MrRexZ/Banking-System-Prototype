@@ -21,7 +21,6 @@
     </Label>
     <Label font="$x1" layoutX="84.0" layoutY="214.0" prefHeight="22.0" prefWidth="109.0" text="PASSWORD:" />
     <TextField fx:id="log_username" layoutX="70.0" layoutY="173.0" prefWidth="200.0" />
-    <TextField fx:id="log_password" layoutX="70.0" layoutY="250.0" prefWidth="200.0" />
     <Button fx:id="submitbutton" layoutX="201.0" layoutY="299.0" mnemonicParsing="false" onAction="#login" onMouseDragOver="#foo" prefHeight="22.0" prefWidth="75.0" text="SUBMIT" />
       <Hyperlink fx:id="register" layoutX="145.0" layoutY="330.0" onAction="#openRegistrationForm" text="Click here to register for new user" />
       <Label layoutX="34.0" layoutY="14.0" text="Welcome to CIMD banking system!">
@@ -30,5 +29,6 @@
          </font>
       </Label>
       <Hyperlink fx:id="quit" layoutX="14.0" layoutY="333.0" onAction="#quitwindow" text="Quit" />
+      <PasswordField fx:id="log_password" layoutX="71.0" layoutY="250.0" prefHeight="25.0" prefWidth="200.0" />
   </children>
 </AnchorPane>

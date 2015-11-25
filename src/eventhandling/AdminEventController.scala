@@ -20,6 +20,10 @@ import scala.collection.mutable.ArrayBuffer
 
 @sfxml
 class AdminEventController(
+    var tempo : Label,
+    var queryScrollPane : ScrollPane,
+    var testaj : AnchorPane,
+    
     var tableID: TableView[User],
     var col_uname : TableColumn[User,String],
     var col_balance : TableColumn[User,String],
@@ -33,8 +37,20 @@ class AdminEventController(
      var col_nation : TableColumn[User,String],
      var col_accno : TableColumn[User,String],
      var col_status : TableColumn[User,String],
-     var scrollpane : ScrollPane,
+     var userScrollPane : ScrollPane,
+     
+     
+     private val transactionTable : TableView[TransactionRecords],
+     private val col_transactionno : TableColumn[TransactionRecords,String],
+     private val col_transactionamount :TableColumn[TransactionRecords,String],
+     private val col_senderno : TableColumn[TransactionRecords,String],
+     private val col_receiverno : TableColumn[TransactionRecords,String],
+     private val transactionScrollPane : ScrollPane,
+     
+     
      var search: TextField,
+     
+     
      
 
     var personaldetailspanel : AnchorPane,
@@ -80,13 +96,20 @@ class AdminEventController(
     col_gender.cellValueFactory = {_.value.gender}
     col_status.cellValueFactory = {_.value.status}
     
+    
+    col_transactionno.cellValueFactory = {_.value.noTr}
+    col_transactionamount.cellValueFactory = {_.value.amountTr}
+    col_senderno.cellValueFactory = {_.value.senderNoTr}
+    col_receiverno.cellValueFactory = {_.value.recipientNoTr}
     var searchQuery=ArrayBuffer[String]()
     var tempCollections =ObservableBuffer[User]()
     
     tableID.items=Main.user
-    scrollpane.fitToHeight=true
-    scrollpane.fitToWidth=true
-  tableID.visible=true
+    transactionTable.items=Main.transactionList
+    userScrollPane.fitToHeight=true
+    userScrollPane.fitToWidth=true
+    transactionScrollPane.fitToHeight=true
+    queryScrollPane.fitToWidth=true
   tableID.editable=true
   var selectedAcc : String=null;
 tableID.selectionModel().selectedItem.onChange(
@@ -111,6 +134,7 @@ col_uname.onEditCommit = (evt: CellEditEvent[User, String]) => {
     
    */ 
 def startSearch(e :ActionEvent ) {
+  if (searchQuery.length>0){
   var tempType = ArrayBuffer[Tuple2[String,User]]()
        for (counter <- Main.user){
    if (fil_uname.selected.value==true)
@@ -126,12 +150,11 @@ def startSearch(e :ActionEvent ) {
    if (fil_status.selected.value==true)
     tempType += ((counter.p_status,counter))
    }
-        searchQuery += search.text.value
    if (r_or.selected.value==true)
      searchOR(tempType);
    if (r_and.selected.value==true)
       searchAND(tempType);
-  
+  }
 
     /* VERSION 2            if (search.text.value!="")
      searchQuery += search.text.value
@@ -214,14 +237,15 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
         if (searchQuery(loop).length <= copyUser(counter)._1.length)  
           if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length)){
             
-          if (filtered.get(copyUser(counter)._2)==None)      filtered += (copyUser(counter)._2 -> 0)   
-          else if (filtered.get(copyUser(counter)._2)!=None) filtered(copyUser(counter)._2) += 1
+          if (filtered.get(copyUser(counter)._2)==None)      
+            filtered += (copyUser(counter)._2 -> 0)   
+          else if (filtered.get(copyUser(counter)._2)!=None) 
+            filtered(copyUser(counter)._2) += 1
 
-          if (filtered(copyUser(counter)._2)==searchQuery.length-1) tempCollections += copyUser(counter)._2
+          if (filtered(copyUser(counter)._2)==searchQuery.length-1) 
+            tempCollections += copyUser(counter)._2
           } 
      filtered.clear()
-   var chosen = ObservableBuffer[User]()
-   var counter=0
        tableID.items=tempCollections
 /*
     if (searchQuery.length!=1)
@@ -325,12 +349,12 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
       Main.user(Main.user.indexWhere( _.u_accno == selectedAcc)).updateInfo(Main.admincontroller)
       updateTable(Main.user.indexWhere( _.u_accno == selectedAcc))
       personaldetailspanel.visible=false
-      scrollpane.visible=true
+      userScrollPane.visible=true
     }
     
     def editSelected (e : ActionEvent){
      personaldetailspanel.visible=true
-     scrollpane.visible=false
+     userScrollPane.visible=false
      edit_fname.text.value= Main.user(Main.user.indexWhere( _.u_accno == selectedAcc)).u_fname
       edit_lname.text.value= Main.user(Main.user.indexWhere( _.u_accno == selectedAcc)).u_lname
       edit_gender.text.value= Main.user(Main.user.indexWhere( _.u_accno == selectedAcc)).u_gender
@@ -357,8 +381,24 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
     
     def addQuery (e :ActionEvent) {
     searchQuery += search.text.value
+    search.clear
+    tempo.text.value = tempo.text.value + search.text.value + ","
+    //testaj.width = 500
     }
+    
+      def openTransactionTable(event: ActionEvent){
+        userScrollPane.visible=false
+        transactionScrollPane.visible=true
+      }
+      
+      def openUserTable(event : ActionEvent) {
+        userScrollPane.visible=true
+        transactionScrollPane.visible=false
+      }
       def logout(event: ActionEvent) {
     Main.roots.setCenter(Main.mainpage)
+    Main.registercontroller.loginasadmin=false
+    println(Main.registercontroller.loginasadmin)
+
     }
 }

@@ -23,23 +23,18 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
   val dob=new StringProperty(this, "dob", u_dob.toString)
   val gender=new StringProperty(this, "gender", u_gender)
   var status = new StringProperty(this, "status", p_status)
-  //  userName.set(s)
-  //}
+
   def rebind() {
   userName = new StringProperty(this, "userName", u_uname)
  }
   def transferMoney(ano_user : User) {
-     u_balance= u_balance - Main.usercontroller.display_amount.text.value.substring(8).toInt
-     ano_user.u_balance=ano_user.u_balance + Main.usercontroller.display_amount.text.value.substring(8).toInt
+     u_balance -= Main.usercontroller.display_amount.text.value.substring(8).toInt
+     ano_user.u_balance += Main.usercontroller.display_amount.text.value.substring(8).toInt
+     balance.value=u_balance.toString()
+     ano_user.balance.value=ano_user.u_balance.toString()
   }
   
-  def calculateLoan(principal : Double, interestinc : Double,time : Int){
-    if (time!=0) calculateLoan(principal*((interestinc/100)+1),interestinc,time-1)
-    else {
-      u_balance = u_balance+principal
-      balance.value=u_balance.toString()
-  }
- }
+
   
   def updateInfo( a : eventhandling.UserEventController#Controller){
     u_fname= checkIfEmpty(form.edit_fname.text.value,u_fname)
@@ -67,6 +62,7 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
     u_contact = checkIfEmpty(admineditform.edit_contactno.text.value,u_contact)
     u_password=checkIfEmpty(admineditform.edit_password.text.value,u_password)
     updateAccount()
+    
     }
     
     
@@ -82,9 +78,9 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
       normalAcc.nu_contact=u_contact
       normalAcc.nu_address=u_address
     }
-    if (premiumAcc!=null) {
+          else if (premiumAcc!=null) {
       println("Premium account detected")
-      premiumAcc.pu_uname=u_fname
+      premiumAcc.pu_uname=u_uname
       premiumAcc.pu_password=u_password
       premiumAcc.pu_nation=u_nation
       premiumAcc.pu_fname=u_fname
@@ -101,31 +97,13 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
   }
   
   def removeUser() {
-  /*  if (Main.user.length-1 - (Main.admincontroller.selectedAcc.toInt-1)>0){
-      println(Main.admincontroller.selectedAcc.toInt-1)
-      println(Main.user.length-2)
-   for (counter <- Main.admincontroller.selectedAcc.toInt-1 to Main.user.length-2){
-     println(counter)
-     Main.user(counter)=Main.user(counter+1);
-     println("yo");
-     Main.counteraccno=Main.counteraccno-1;}
-    }*/
-    
 
-  /*  println(Main.user(Main.admincontroller.selectedAcc.toInt-1).u_accno)
-    Main.user.remove(Main.admincontroller.selectedAcc.toInt)
-    //Main.counteraccno=Main.counteraccno-1
-    println(Main.user(0).u_accno)*/
   }
-  //TO-DO update Normal Acc after making personal edit changes.
-  //TO-DO make a table containing transaction history
-  //TO-DO optimize search algorithm
-  //Implement search algorithm to improve performance`
   
   def upgradeUser() {
     if (u_balance>=500) {
       u_balance=u_balance-500
-      premiumAcc=new PremiumAccount(u_uname ,u_password ,u_fname, u_lname,u_address,u_contact,u_dob,u_nation)
+      premiumAcc=new PremiumAccount(u_uname ,u_password ,u_fname, u_lname,u_address,u_contact,u_dob,u_nation,0)
       normalAcc=null
       p_status= "Premium User"
       Main.admincontroller.updateTable(Main.user.indexWhere( _.u_accno == u_accno))

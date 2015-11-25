@@ -1,6 +1,6 @@
 package eventhandling             
 import scalafxml.core.macros.sfxml    
-import scalafx.scene.control.{Label,TextField,TextArea,DatePicker,PasswordField}
+import scalafx.scene.control.{Label,TextField,TextArea,DatePicker,PasswordField,Button}
 import scalafx.scene.layout._
 import mainclasses._
 import scalafx.event.ActionEvent
@@ -18,7 +18,7 @@ class UserEventController(
     var balance : Label,
     
     
-    private var transferpane : AnchorPane,
+    var transferpane : AnchorPane,
     var enter_targetacc: TextField,
     var enter_amount: TextField,
     var display_balance : Label,
@@ -27,7 +27,8 @@ class UserEventController(
     var display_destname : Label,
     var display_destno : Label,
     var display_amount : Label,
-    var transactionno : Label,
+    var confirmtransactionbutton : Button,
+    var transactiondisplayno : Label,
     
     var personaldetailspane : AnchorPane,
     var pd_fname : scalafx.scene.control.Label,
@@ -53,11 +54,12 @@ class UserEventController(
     var changelabel1 :Label,
     
     var upgradepane : AnchorPane,
-    var loanpane : AnchorPane,
     
+    var loanpane : AnchorPane,
     private var amountborrow : TextField,
     private var time : TextField,
-    var aboutpane : AnchorPane
+    private var loan_msg : Label,
+     var aboutpane : AnchorPane
     ) {
   
   def checkBalance(e: ActionEvent) {
@@ -71,39 +73,40 @@ class UserEventController(
       Main.enable(transferpane)
       Main.disable(upgradepane,balancepane,aboutpane,loanpane,personaldetailspane)
     display_balance.text.value="Balance : "+ Main.user(Main.loggedin).u_balance.toString
-    Main.disable(display_sendername,display_senderno,display_destname,display_destno,display_amount)
+    Main.disable(display_sendername,display_senderno,display_destname,display_destno,display_amount,transactiondisplayno,confirmtransactionbutton)
     }
   
   def continueTransfer(e : ActionEvent) {
-    Main.enable(display_sendername,display_senderno,display_destname,display_destno,display_amount)
-//var c= Option(enter_targetacc.text.value)
-  //  Main.show(c)
-   // Main.te(enter_targetacc.text.value)
-    //for (y <- 0 to Main.user.length-1){
-      
-            //println(Main.user(y).u_accno)
-    if (enter_targetacc.text.value.toInt>0 && enter_targetacc.text.value.toInt<=Main.user.length && enter_amount.text.value.toInt>0 && enter_amount.text.value.toInt<=Main.user(Main.loggedin).u_balance ) {
+   
+    transactiondisplayno.text.value="Transaction No. : "
+    if ((enter_targetacc.text.value.toInt<=0 || Main.user.indexWhere( _.u_accno == enter_targetacc.text.value)== -1) && (enter_amount.text.value.toInt<0 || enter_amount.text.value.toInt>Main.user(Main.loggedin).u_balance) )
+      JOptionPane.showMessageDialog(null, "Please enter the correct destination account number and check your amount");
+    else if (enter_targetacc.text.value.toInt<=0 || Main.user.indexWhere( _.u_accno == enter_targetacc.text.value)== -1)
+      JOptionPane.showMessageDialog(null, "Please enter the correct destination account number");
+    else if (enter_amount.text.value.toInt<=0 || enter_amount.text.value.toInt>Main.user(Main.loggedin).u_balance)
+      JOptionPane.showMessageDialog(null, "Please enter the correct amount");
+    else if (enter_targetacc.text.value.toInt>0 && Main.user(Main.user.indexWhere( _.u_accno == enter_targetacc.text.value))!=null && enter_amount.text.value.toInt>0 && enter_amount.text.value.toInt<=Main.user(Main.loggedin).u_balance ) {
     display_sendername.text.value = "Sender Name :" + Main.user(Main.loggedin).u_fname + " "+Main.user(Main.loggedin).u_lname
     display_senderno.text.value ="Sender Account No. :" + Main.user(Main.loggedin).u_accno
     display_destno.text.value ="Destination Account No. :" + enter_targetacc.text.value
     display_destname.text.value = "Recipient Name : " +Main.user(Main.user.indexWhere( _.u_accno == enter_targetacc.text.value)).u_fname +" " +Main.user(Main.user.indexWhere( _.u_accno == enter_targetacc.text.value)).u_lname
     display_amount.text.value="Amount :" + enter_amount.text.value
+     Main.enable(display_sendername,display_senderno,display_destname,display_destno,display_amount,transactiondisplayno,confirmtransactionbutton)
     }
-    else if ((enter_targetacc.text.value.toInt<=0 || enter_targetacc.text.value.toInt>Main.user.length) && (enter_amount.text.value.toInt<0 || enter_amount.text.value.toInt>Main.user(Main.loggedin).u_balance) )
-      JOptionPane.showMessageDialog(null, "Please enter the correct destination account number and check your amount");
-    else if (enter_targetacc.text.value.toInt<=0 || enter_targetacc.text.value.toInt>Main.user.length)
-      JOptionPane.showMessageDialog(null, "Please enter the correct destination account number");
-    else if (enter_amount.text.value.toInt<=0 || enter_amount.text.value.toInt>Main.user(Main.loggedin).u_balance)
-      JOptionPane.showMessageDialog(null, "Please enter the correct amount");
+
 
   }
   
   def confirmTransaction (e : ActionEvent){
-    transactionno.text.value="Transaction No. : " + Main.countertransaction.toString
-    
+    transactiondisplayno.text.value="Transaction No. : " + Main.countertransaction.toString
+    Main.transactionList += TransactionRecords(transactiondisplayno.text.value.substring(18,transactiondisplayno.text.value.length),display_amount.text.value.substring(8,display_amount.text.value.length),Main.user.indexWhere( _.u_accno == enter_targetacc.text.value).toString,Main.loggedin.toString())
     Main.countertransaction=Main.countertransaction+1
     Main.user(Main.loggedin).transferMoney(Main.user(Main.user.indexWhere( _.u_accno == enter_targetacc.text.value)))
-  
+    enter_amount.clear
+    enter_targetacc.clear
+    display_balance.text.value="Balance : "+ Main.user(Main.loggedin).u_balance.toString
+ //   Main.transactionList(Main.transactionList.length-1).noTr.value=3.toString
+   // println(Main.transactionList(Main.transactionList.length-1).noTr.value)
   }
      
 
@@ -176,13 +179,18 @@ class UserEventController(
   }
   
   def confirmLoan(e : ActionEvent) {
-       Main.user(Main.loggedin).calculateLoan(amountborrow.text.value.toDouble,5.toDouble,time.text.value.toInt)
+       Main.user(Main.loggedin).u_balance+=amountborrow.text.value.toDouble 
+       loan_msg.text.value="Loan successful, your debt is now at :" +   Main.user(Main.loggedin).premiumAcc.calculateLoan(amountborrow.text.value.toDouble,6.toDouble,time.text.value.toInt)
+       amountborrow.clear
+       time.clear
   }
   def showCredits(e : ActionEvent){
       Main.enable(aboutpane)
       Main.disable(transferpane,balancepane,upgradepane,loanpane,personaldetailspane)
   }
   def logout(event: ActionEvent) {
+    
+    Main.registercontroller.loginasuser=false
     Main.roots.setCenter(Main.mainpage)
     }
 }
