@@ -114,5 +114,5 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
 }
 
 object User {
-  var counteraccno=0
+  var counteraccno=1
 }
