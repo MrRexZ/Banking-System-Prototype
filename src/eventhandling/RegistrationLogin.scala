@@ -63,6 +63,7 @@ class RegistrationLogin(
    else {
     Main.user += new User(r_username.text.value,r_password.text.value, r_fname.text.value, r_lname.text.value,r_address.text.value,r_contactnum.text.value,gender,r_dob.getValue().toString(),r_nation.text.value,User.counteraccno.toString(),1000,0)
     User.counteraccno=User.counteraccno+1
+    Main.AccNoToIndex += ( User.counteraccno-1 -> (Main.user.length-1) )
     Main.roots.setCenter(Main.mainpage)
      }
 
@@ -88,7 +89,7 @@ class RegistrationLogin(
       for (admin <- Main.admin) {
         if (admin.s_uname == log_username.text.value && admin.s_password==log_password.text.value){
           
-          Main.admincontroller.tableID.items=Main.user
+          Main.admincontroller.tableUser.items=Main.user
           Main.roots.setCenter(Main.adminroot)
           Main.admincontroller.userScrollPane.visible=true
           Main.registercontroller.loginasadmin=true

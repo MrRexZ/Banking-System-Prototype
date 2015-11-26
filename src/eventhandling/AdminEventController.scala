@@ -20,10 +20,10 @@ import scala.collection.mutable.ArrayBuffer
 
 @sfxml
 class AdminEventController(
-    var querydisplay : Label,
+    private var querydisplay : Label,
     var queryScrollPane : ScrollPane,
     
-     var tableID: TableView[User],
+     var tableUser: TableView[User],
      var col_uname : TableColumn[User,String],
      var col_balance : TableColumn[User,String],
      var col_fname : TableColumn[User,String],
@@ -101,22 +101,25 @@ class AdminEventController(
     col_transactionamount.cellValueFactory = {_.value.amountTr}
     col_senderno.cellValueFactory = {_.value.senderNoTr}
     col_receiverno.cellValueFactory = {_.value.recipientNoTr}
+    
     var searchQuery=ArrayBuffer[String]()
     var tempCollections =ObservableBuffer[User]()
     
-    tableID.items=Main.user
+    tableUser.items=Main.user
     transactionTable.items=Main.transactionList
     userScrollPane.fitToHeight=true
     userScrollPane.fitToWidth=true
     transactionScrollPane.fitToHeight=true
     
-  tableID.editable=true
+  tableUser.editable=true
   var selectedAcc : String=null;
-tableID.selectionModel().selectedItem.onChange(
+tableUser.selectionModel().selectedItem.onChange(
      (_, _, newValue) => selectedAcc=newValue.u_accno)
 
 def startSearch(e :ActionEvent ) {
+  
   if (searchQuery.length>0){
+   tempCollections.clear()
   var tempType = ArrayBuffer[Tuple2[String,User]]()
        for (counter <- Main.user){
    if (fil_uname.selected.value==true)    tempType += ((counter.u_uname,counter))
@@ -126,15 +129,14 @@ def startSearch(e :ActionEvent ) {
    if (fil_lname.selected.value==true)    tempType += ((counter.u_lname,counter))
    if (fil_status.selected.value==true)   tempType += ((counter.p_status,counter))
    }
-   if (r_or.selected.value==true)
-     searchOR(tempType);
-   if (r_and.selected.value==true)
-      searchAND(tempType);
+  
+   if (r_or.selected.value==true)  searchOR(tempType);
+   if (r_and.selected.value==true) searchAND(tempType);
   }
  }
 def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
   
-      tableID.items=null
+      tableUser.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
      var tempCollections = ObservableBuffer[User]()
 
@@ -147,12 +149,12 @@ def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
             filtered += (copyUser(counter)._2 -> counter)
             }
           }   
-       tableID.items=tempCollections
+       tableUser.items=tempCollections
        
 }
 def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
   
-      tableID.items=null
+      tableUser.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
      for (counter <- 0 to copyUser.length-1)
       for (loop <- 0 to searchQuery.length-1) 
@@ -168,11 +170,11 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
             tempCollections += copyUser(counter)._2
           } 
      filtered.clear()
-     tableID.items=tempCollections
+     tableUser.items=tempCollections
 
 }
  def refresh(e : ActionEvent) {
-   tableID.items=Main.user
+   tableUser.items=Main.user
    tempCollections.clear()
    searchQuery.clear()
    querydisplay.text.value=""
@@ -218,13 +220,13 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
     def removeElement (e : ActionEvent) {
         Main.user.remove(Main.user.indexWhere( _.u_accno == selectedAcc))
         if (tempCollections.length>0)
-         tableID.items().remove(tempCollections.indexWhere( _.u_accno == selectedAcc))
-         
+         tableUser.items().remove(tempCollections.indexWhere( _.u_accno == selectedAcc))
+        
      /* var counter=0   
       while (Main.user(counter).u_accno!=selectedAcc)     
         counter=counter+1
       Main.user.remove(counter)
-      tableID.items=Main.user*/
+      tableUser.items=Main.user*/
     }
     
     def addQuery (e :ActionEvent) {

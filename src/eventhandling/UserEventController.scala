@@ -70,14 +70,14 @@ class UserEventController(
   
   def checkBalance(e: ActionEvent) {
       Main.enable(balancepane)
-      Main.disable(upgradepane,transferpane,aboutpane,loanpane,personaldetailspane)
+      Main.disable(upgradepane,transferpane,aboutpane,loanpane,personaldetailspane,suc_upgrade)
   balance.text.value="Your balance is : "+ Main.user(Main.loggedin).u_balance.toString
   }
   
     
   def openTransfer(e: ActionEvent) {
       Main.enable(transferpane)
-      Main.disable(upgradepane,balancepane,aboutpane,loanpane,personaldetailspane)
+      Main.disable(upgradepane,balancepane,aboutpane,loanpane,personaldetailspane,suc_upgrade)
     display_balance.text.value="Balance : "+ Main.user(Main.loggedin).u_balance.toString
     Main.disable(display_sendername,display_senderno,display_destname,display_destno,display_amount,transactiondisplayno,confirmtransactionbutton)
     }
@@ -117,7 +117,7 @@ class UserEventController(
 
   def viewPersonalDetails(event: ActionEvent) {
      Main.enable(personaldetailspane)
-     Main.disable(transferpane,balancepane,aboutpane,loanpane,upgradepane)
+     Main.disable(transferpane,balancepane,aboutpane,loanpane,upgradepane,suc_upgrade)
      Main.disable(edit_fname,edit_lname,edit_gender,edit_dob,edit_nation,edit_address,edit_contactno,edit_password,edit_confirmpassword)
      Main.enable(pd_fname,pd_lname,pd_gender,pd_dob,pd_nation,pd_address,pd_contactno,pd_uname,pd_password) 
     pd_fname.text.value= ": "+Main.user(Main.loggedin).u_fname
@@ -141,7 +141,11 @@ class UserEventController(
  }
   
   def confirmUpgradeAccount(event : ActionEvent) {
-    if (Main.user(Main.loggedin).premiumAcc==null) Main.user(Main.loggedin).upgradeUser()  
+    if (Main.user(Main.loggedin).premiumAcc==null) {
+      Main.user(Main.loggedin).upgradeUser()
+      suc_upgrade.visible=true
+      upgradepane.visible=false
+      }  
     else JOptionPane.showMessageDialog(null, "Your account is already upgraded!");
   }
   
@@ -183,7 +187,7 @@ class UserEventController(
   def requestLoan(e : ActionEvent) {
     if (Main.user(Main.loggedin).premiumAcc!=null) {
       Main.enable(loanpane)
-      Main.disable(transferpane,balancepane,aboutpane,upgradepane,personaldetailspane)
+      Main.disable(transferpane,balancepane,aboutpane,upgradepane,personaldetailspane,suc_upgrade)
       display_loanval.text.value=Main.generatedRandInterest.toString + "%"
    }
     else JOptionPane.showMessageDialog(null, "Please upgrade your account to premium to use this feature!");  
@@ -205,9 +209,9 @@ class UserEventController(
       Main.disable(transferpane,balancepane,upgradepane,loanpane,personaldetailspane)
   }
   def logout(event: ActionEvent) {
-    
+    suc_upgrade.visible=false
+     display_loansuccess.visible=false
     Main.registercontroller.loginasuser=false
     Main.roots.setCenter(Main.mainpage)
-    display_loansuccess.visible=false
     }
 }

@@ -21,8 +21,9 @@ import scalafx.collections.ObservableBuffer
 import scala.util.Random
 object Main extends JFXApp{
   var user = ObservableBuffer[User]()
- // var accnoToindex= Map[User,Int]()
-/*
+  var AccNoToIndex= scala.collection.mutable.Map[Int,Int]()
+
+  /*
   user += new User("AnthonyTe","asdadsa","fff","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","0",1000,0)
   user += new User("Antt","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","1",1000,0)
  user += new User("asda","asdadsa","ewqewq","aaaaa","asdad","asdadsa","asdadsa","asdadsa","asdadsa","2",1000,0)

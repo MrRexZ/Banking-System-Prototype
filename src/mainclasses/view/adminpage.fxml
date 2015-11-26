@@ -145,7 +145,7 @@
                   </ScrollPane>
                   <ScrollPane fx:id="userScrollPane" prefViewportHeight="398.0" prefViewportWidth="417.0">
                      <content>
-                        <TableView fx:id="tableID" editable="true">
+                        <TableView fx:id="tableUser" editable="true">
                           <columns>
                             <TableColumn fx:id="col_uname" prefWidth="72.0" text="Username" />
                               <TableColumn fx:id="col_balance" prefWidth="72.0" text="Balance" />

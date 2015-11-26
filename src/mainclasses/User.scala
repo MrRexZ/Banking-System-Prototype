@@ -44,7 +44,16 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
     u_contact = checkIfEmpty(form.edit_contactno.text.value,u_contact)
     u_password=checkIfEmpty(form.edit_password.text.value,u_password)
     
-    updateAccount()
+    
+      normalAcc.nu_uname=u_fname
+      normalAcc.nu_password=u_password
+      normalAcc.nu_nation=u_nation
+      normalAcc.nu_fname=u_fname
+      normalAcc.nu_lname=u_lname
+      normalAcc.nu_dob=u_dob
+      normalAcc.nu_contact=u_contact
+      normalAcc.nu_address=u_address
+    
     
   }
   
@@ -59,23 +68,7 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
     u_address=checkIfEmpty(admineditform.edit_address.text.value,u_address)
     u_contact = checkIfEmpty(admineditform.edit_contactno.text.value,u_contact)
     u_password=checkIfEmpty(admineditform.edit_password.text.value,u_password)
-    updateAccount()
-    
-    }
-    
-    
-    def updateAccount() {
-          if (normalAcc!=null){
-      normalAcc.nu_uname=u_fname
-      normalAcc.nu_password=u_password
-      normalAcc.nu_nation=u_nation
-      normalAcc.nu_fname=u_fname
-      normalAcc.nu_lname=u_lname
-      normalAcc.nu_dob=u_dob
-      normalAcc.nu_contact=u_contact
-      normalAcc.nu_address=u_address
-    }
-          else if (premiumAcc!=null) {
+        
       premiumAcc.pu_uname=u_uname
       premiumAcc.pu_password=u_password
       premiumAcc.pu_nation=u_nation
@@ -84,8 +77,9 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
       premiumAcc.pu_dob=u_dob
       premiumAcc.pu_contact=u_contact
       premiumAcc.pu_address=u_address
+    
     }
-    }
+    
   
   def checkIfEmpty(x : String, y : String): String = x match {
     case "" => y
