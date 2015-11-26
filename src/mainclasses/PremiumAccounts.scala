@@ -1,10 +1,9 @@
-
-
 package mainclasses
 import scalafx.beans.property.{ObjectProperty, StringProperty} 
 
 
-class PremiumAccount(var pu_uname : String,var pu_password : String,var pu_fname : String = null, var pu_lname: String= null, var pu_address : String=null,var pu_contact : String=null,var pu_dob : String = null,var pu_nation : String=null){
+class PremiumAccount(var pu_uname : String,var pu_password : String,var pu_fname : String = null, var pu_lname: String= null, var pu_address : String=null,var pu_contact : String=null,
+    var pu_dob : String = null,var pu_nation : String=null){
   
   def calculateLoan(principal : Double, interestinc : Double,time : Int) : Double={
 

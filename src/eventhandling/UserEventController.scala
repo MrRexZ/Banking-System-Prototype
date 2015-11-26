@@ -17,8 +17,7 @@ class UserEventController(
     var displayusername : scalafx.scene.control.Label,
     var balancepane : AnchorPane, 
     var balance : Label,
-    
-    
+ 
     var transferpane : AnchorPane,
     var enter_targetacc: TextField,
     var enter_amount: TextField,
