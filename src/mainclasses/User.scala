@@ -28,8 +28,6 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
      ano_user.balance.value=ano_user.u_balance.toString()
   }
   
-
-  
   def updateInfo( a : eventhandling.UserEventController#Controller){
     u_fname= checkIfEmpty(form.edit_fname.text.value,u_fname)
     u_lname= checkIfEmpty(form.edit_lname.text.value,u_lname)
@@ -108,5 +106,5 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
 }
 
 object User {
-  var counteraccno=1
+  var counteraccno=4
 }

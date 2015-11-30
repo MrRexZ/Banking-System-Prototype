@@ -79,6 +79,8 @@ class RegistrationLogin(
           Main.enable(Main.usercontroller.balancepane)
           Main.disable(Main.usercontroller.upgradepane,Main.usercontroller.transferpane,Main.usercontroller.aboutpane,Main.usercontroller.loanpane,Main.usercontroller.personaldetailspane)
           Main.usercontroller.balance.text="Your balance is : "+ Main.user(Main.loggedin).u_balance.toString
+          Main.usercontroller.display_debt.text="Your debt is : " + Main.user(Main.loggedin).debt.toString
+
           Main.registercontroller.loginasuser=true
           Main.generatedRandInterest=Random.nextInt(9)+1
         }

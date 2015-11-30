@@ -104,6 +104,9 @@ class AdminEventController(
     
     var searchQuery=ArrayBuffer[String]()
     var tempCollections =ObservableBuffer[User]()
+    var tempType = ArrayBuffer[Tuple2[String,User]]()
+    var collectionArray= ArrayBuffer[ArrayBuffer[Tuple2[String,User]]]();
+    var count=0;
     
     tableUser.items=Main.user
     transactionTable.items=Main.transactionList
@@ -119,65 +122,61 @@ tableUser.selectionModel().selectedItem.onChange(
 def startSearch(e :ActionEvent ) {
   
   if (searchQuery.length>0){
-   tempCollections.clear()
-  var tempType = ArrayBuffer[Tuple2[String,User]]()
-       for (counter <- Main.user){
-   if (fil_uname.selected.value==true)    tempType += ((counter.u_uname,counter))
-   if (fil_password.selected.value==true) tempType += ((counter.u_password,counter))
-   if (fil_nation.selected.value==true)   tempType += ((counter.u_nation,counter))
-   if (fil_fname.selected.value==true)    tempType += ((counter.u_fname,counter))
-   if (fil_lname.selected.value==true)    tempType += ((counter.u_lname,counter))
-   if (fil_status.selected.value==true)   tempType += ((counter.p_status,counter))
-   }
+   tempCollections.clear
+  var limit=count/Main.user.length
   
-   if (r_or.selected.value==true)  searchOR(tempType);
-   if (r_and.selected.value==true) searchAND(tempType);
+  if (r_or.selected.value==true)  searchOR(collectionArray);
+   if (r_and.selected.value==true) searchAND(collectionArray,limit);
   }
  }
-def searchOR(copyUser : ArrayBuffer[Tuple2[String,User]]) {
+def searchOR(copyUser : ArrayBuffer[ArrayBuffer[Tuple2[String,User]]]) {
   
       tableUser.items=null
      var filtered=scala.collection.mutable.Map[User,Int]()
-     var tempCollections = ObservableBuffer[User]()
+    for (loop <- 0 to searchQuery.length-1) 
+     for (counter <- 0 to copyUser(loop).length-1)
+        if (searchQuery(loop).length <= copyUser(loop)(counter)._1.length)  
+          if (searchQuery(loop)==copyUser(loop)(counter)._1.substring(0,searchQuery(loop).length)){
 
-     for (counter <- 0 to copyUser.length-1)  
-      for (loop <- 0 to searchQuery.length-1)
-        if (searchQuery(loop).length <= copyUser(counter)._1.length){   
-          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length))
-          if (filtered.get(copyUser(counter)._2)==None){
-              tempCollections+=copyUser(counter)._2
-            filtered += (copyUser(counter)._2 -> counter)
-            }
-          }   
-       tableUser.items=tempCollections
-       
-}
-def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
-  
-      tableUser.items=null
-     var filtered=scala.collection.mutable.Map[User,Int]()
-     for (counter <- 0 to copyUser.length-1)
-      for (loop <- 0 to searchQuery.length-1) 
-        if (searchQuery(loop).length <= copyUser(counter)._1.length)  
-          if (searchQuery(loop)==copyUser(counter)._1.substring(0,searchQuery(loop).length)){
-            
-          if (filtered.get(copyUser(counter)._2)==None)      
-            filtered += (copyUser(counter)._2 -> 0)   
-          else if (filtered.get(copyUser(counter)._2)!=None) 
-            filtered(copyUser(counter)._2) += 1
+          if (filtered.get(copyUser(loop)(counter)._2)==None){
+            filtered += (copyUser(loop)(counter)._2 -> 0) 
+            tempCollections += copyUser(loop)(counter)._2
+          }
 
-          if (filtered(copyUser(counter)._2)==searchQuery.length-1) 
-            tempCollections += copyUser(counter)._2
           } 
      filtered.clear()
      tableUser.items=tempCollections
-
+       
+}
+def searchAND(copyUser : ArrayBuffer[ArrayBuffer[Tuple2[String,User]]], limit : Int){
+  
+      tableUser.items=null
+     var filtered=scala.collection.mutable.Map[User,Int]()
+     println(filtered)
+    for (loop <- 0 to searchQuery.length-1) {
+     for (counter <- 0 to copyUser(loop).length-1)
+        if (searchQuery(loop).length <= copyUser(loop)(counter)._1.length)  
+          if (searchQuery(loop)==copyUser(loop)(counter)._1.substring(0,searchQuery(loop).length)){
+           
+          if (filtered.get(copyUser(loop)(counter)._2)==None)      
+            filtered += (copyUser(loop)(counter)._2 -> 0)   
+          else if (filtered.get(copyUser(loop)(counter)._2)!=None) {
+            filtered(copyUser(loop)(counter)._2) += 1
+          }
+          if (filtered(copyUser(loop)(counter)._2) == limit-1) 
+            tempCollections += copyUser(loop)(counter)._2
+          } 
+    }
+     tableUser.items=tempCollections
 }
  def refresh(e : ActionEvent) {
    tableUser.items=Main.user
    tempCollections.clear()
    searchQuery.clear()
+   tempType.clear()
+   collectionArray.clear()
    querydisplay.text.value=""
+   count=0
  }
  
  def updateTable(ArrayIndex : Int) {
@@ -232,9 +231,28 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
     def addQuery (e :ActionEvent) {
     searchQuery += search.text.value
     querydisplay.text.value = querydisplay.text.value + search.text.value + ","
-    search.clear
+    search.clear()
+    
+    var tempType = ArrayBuffer[Tuple2[String,User]]()
+   for (counter <- Main.user){
+   if (fil_uname.selected.value==true)    {tempType += ((counter.u_uname,counter));count=count+1}
+   if (fil_password.selected.value==true) {tempType += ((counter.u_password,counter));count=count+1}
+   if (fil_nation.selected.value==true)   {tempType += ((counter.u_nation,counter));count=count+1}
+   if (fil_fname.selected.value==true)    {tempType += ((counter.u_fname,counter));count=count+1}
+   if (fil_lname.selected.value==true)    {tempType += ((counter.u_lname,counter));count=count+1}
+   if (fil_status.selected.value==true)   {tempType += ((counter.p_status,counter));count=count+1}
+   }
 
-    }
+ 
+    collectionArray.append(tempType)
+    fil_uname.selected=false
+    fil_password.selected=false
+    fil_nation.selected=false
+    fil_fname.selected=false
+    fil_lname.selected=false
+    fil_status.selected=false
+    
+}
     
       def openTransactionTable(event: ActionEvent){
         userScrollPane.visible=false
@@ -248,7 +266,6 @@ def searchAND(copyUser : ArrayBuffer[Tuple2[String,User]]){
       def logout(event: ActionEvent) {
     Main.roots.setCenter(Main.mainpage)
     Main.registercontroller.loginasadmin=false
-    println(Main.registercontroller.loginasadmin)
 
     }
 }

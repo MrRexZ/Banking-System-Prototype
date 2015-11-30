@@ -104,9 +104,14 @@
                         <Button layoutX="132.0" layoutY="328.0" mnemonicParsing="false" onAction="#confirmUpgradeAccount" text="Click here to upgrade" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="balancepane" prefHeight="398.0" prefWidth="457.0" visible="false">
+                  <AnchorPane fx:id="balancepane" prefHeight="398.0" prefWidth="457.0">
                      <children>
                         <Label fx:id="balance" layoutX="14.0" layoutY="24.0" prefHeight="51.0" prefWidth="428.0" text="Your balance is :">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="display_debt" layoutX="14.0" layoutY="61.0" prefHeight="51.0" prefWidth="428.0" text="Your debt is :">
                            <font>
                               <Font size="15.0" />
                            </font>

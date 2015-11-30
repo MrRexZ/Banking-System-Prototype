@@ -17,6 +17,7 @@ class UserEventController(
     var displayusername : scalafx.scene.control.Label,
     var balancepane : AnchorPane, 
     var balance : Label,
+    var display_debt : Label,
  
     var transferpane : AnchorPane,
     var enter_targetacc: TextField,
@@ -70,7 +71,8 @@ class UserEventController(
   def checkBalance(e: ActionEvent) {
       Main.enable(balancepane)
       Main.disable(upgradepane,transferpane,aboutpane,loanpane,personaldetailspane,suc_upgrade)
-  balance.text.value="Your balance is : "+ Main.user(Main.loggedin).u_balance.toString
+  balance.text="Your balance is : "+ Main.user(Main.loggedin).u_balance.toString
+  display_debt.text="Your debt is : " + Main.user(Main.loggedin).debt.toString
   }
   
     
