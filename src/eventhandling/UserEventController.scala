@@ -106,7 +106,7 @@ class UserEventController(
   
   def confirmTransaction (e : ActionEvent){
     transactiondisplayno.text.value="Transaction No. : " + Main.countertransaction.toString
-    Main.transactionList += TransactionRecords(transactiondisplayno.text.value.substring(18,transactiondisplayno.text.value.length),display_amount.text.value.substring(8,display_amount.text.value.length),Main.user.indexWhere( _.u_accno == enter_targetacc.text.value).toString,Main.loggedin.toString())
+    Main.transactionList += TransactionRecords(transactiondisplayno.text.value.substring(18,transactiondisplayno.text.value.length),display_amount.text.value.substring(8,display_amount.text.value.length),enter_targetacc.text.value,Main.user(Main.loggedin).u_accno.toString())
     Main.countertransaction=Main.countertransaction+1
     Main.user(Main.loggedin).transferMoney(Main.user(Main.user.indexWhere( _.u_accno == enter_targetacc.text.value)))
     enter_amount.clear

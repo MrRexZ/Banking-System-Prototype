@@ -90,12 +90,10 @@ class RegistrationLogin(
       for (admin <- Main.admin) {
         if (admin.s_uname == log_username.text.value && admin.s_password==log_password.text.value){
           
-          Main.admincontroller.tableUser.items=Main.user
           Main.roots.setCenter(Main.adminroot)
           Main.admincontroller.userScrollPane.visible=true
           Main.registercontroller.loginasadmin=true
         }
-        
       }
       
       if (Main.registercontroller.loginasuser==false && Main.registercontroller.loginasadmin==false)

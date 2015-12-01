@@ -5,9 +5,7 @@ import scala.util.{ Try, Success, Failure }
 import java.io.IOException
 import mainclasses.Main
 import scalafx.Includes._
-/**
- * @author HaleyMac
- */
+
 object ResourceLoading {
   private def load(filename : String): URL = {
     Try(Main.getClass.getResource(filename)) match {

@@ -220,12 +220,7 @@ def searchAND(copyUser : ArrayBuffer[ArrayBuffer[Tuple2[String,User]]], limit : 
         Main.user.remove(Main.user.indexWhere( _.u_accno == selectedAcc))
         if (tempCollections.length>0)
          tableUser.items().remove(tempCollections.indexWhere( _.u_accno == selectedAcc))
-        
-     /* var counter=0   
-      while (Main.user(counter).u_accno!=selectedAcc)     
-        counter=counter+1
-      Main.user.remove(counter)
-      tableUser.items=Main.user*/
+
     }
     
     def addQuery (e :ActionEvent) {
