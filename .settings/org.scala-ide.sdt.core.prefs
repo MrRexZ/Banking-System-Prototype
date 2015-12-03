@@ -1,0 +1,10 @@
+P=
+Xplugin=C\:\\Users\\Mr_RexZ\\Downloads\\paradise_2.11.7-2.0.1.jar
+Xplugin-disable=
+Xplugin-require=
+eclipse.preferences.version=1
+recompileOnMacroDef=false
+scala.compiler.additionalParams=
+scala.compiler.installation=2.11
+scala.compiler.sourceLevel=2.11
+scala.compiler.useProjectSettings=false

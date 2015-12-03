@@ -2,7 +2,6 @@ package eventhandling
 
 import scalafx.Includes._   
 import mainclasses._
-import address._
 import scalafx.scene.control._       
 import scalafx.scene.control.TextField
 import scalafx.scene.control.Button
@@ -41,15 +40,15 @@ class RegistrationLogin(
     private var radioGroup : ToggleGroup
     ) {
 
-    var gender : String = null
+    private var gender : String = null
     var loginasuser=false
     var loginasadmin=false
-  def foo(e : ActionEvent) {
-}
-    def openRegistrationForm(e : ActionEvent) {
+    
+ def openRegistrationForm(e : ActionEvent) {
   Main.roots.setCenter(Main.registrationpage)
 }
-    def createUser(e : ActionEvent) {
+    
+ def createUser(e : ActionEvent) {
     if (r_male.selected.value==true) gender="M"
     if (r_female.selected.value==true) gender="F"
     if (r_other.selected.value==true) gender="Other"
@@ -63,13 +62,12 @@ class RegistrationLogin(
    else {
     Main.user += new User(r_username.text.value,r_password.text.value, r_fname.text.value, r_lname.text.value,r_address.text.value,r_contactnum.text.value,gender,r_dob.getValue().toString(),r_nation.text.value,User.counteraccno.toString(),1000,0)
     User.counteraccno=User.counteraccno+1
-    Main.AccNoToIndex += ( User.counteraccno-1 -> (Main.user.length-1) )
     Main.roots.setCenter(Main.mainpage)
      }
 
    }
 
-    def login(e : ActionEvent) {
+ def login(e : ActionEvent) {
       for (u_index <- 0 until Main.user.length) {
         if (Main.user(u_index).u_uname == log_username.text.value && Main.user(u_index).u_password == log_password.text.value){
           Main.usercontroller.displayusername.text="Welcome " + log_username.text.value
@@ -91,7 +89,6 @@ class RegistrationLogin(
         if (admin.s_uname == log_username.text.value && admin.s_password==log_password.text.value){
           
           Main.roots.setCenter(Main.adminroot)
-          Main.admincontroller.userScrollPane.visible=true
           Main.registercontroller.loginasadmin=true
         }
       }
@@ -99,7 +96,8 @@ class RegistrationLogin(
       if (Main.registercontroller.loginasuser==false && Main.registercontroller.loginasadmin==false)
         JOptionPane.showMessageDialog(null, "Please recheck your usename and/or password")
     }
-    def quitwindow(e :ActionEvent) {
+ 
+ def quitwindow(e :ActionEvent) {
       Platform.exit()
     }
 }

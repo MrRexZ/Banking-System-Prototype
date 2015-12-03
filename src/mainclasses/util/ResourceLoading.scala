@@ -1,4 +1,4 @@
-package address.util
+package mainclasses.util
 import java.net.URL   
 import scalafxml.core.{NoDependencyResolver, FXMLLoader}
 import scala.util.{ Try, Success, Failure }

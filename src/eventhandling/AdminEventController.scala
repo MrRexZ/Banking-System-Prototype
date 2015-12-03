@@ -1,9 +1,8 @@
 package eventhandling
-import scalafx.Includes._       
+import scalafx.Includes._        
 import scalafxml.core.macros.sfxml  
 import scalafx.scene.control.{Label,TextField,TableView,TableColumn,Alert,ScrollPane,DatePicker,TextArea,PasswordField,CheckBox,RadioButton}
 import mainclasses._
-import address._
 import scalafx.Includes._
 import javafx.beans.property.StringProperty
 import scalafx.event.ActionEvent
@@ -24,21 +23,22 @@ class AdminEventController(
     var queryScrollPane : ScrollPane,
     
      var tableUser: TableView[User],
-     var col_uname : TableColumn[User,String],
-     var col_balance : TableColumn[User,String],
-     var col_fname : TableColumn[User,String],
-     var col_lname : TableColumn[User,String],
-     var col_password : TableColumn[User,String],
-     var col_address : TableColumn[User,String],
-     var col_contact : TableColumn[User,String],
-     var col_gender : TableColumn[User,String],
-     var col_dob: TableColumn[User,String],
-     var col_nation : TableColumn[User,String],
-     var col_accno : TableColumn[User,String],
-     var col_status : TableColumn[User,String],
-     var col_debt   : TableColumn[User,String],
-     var col_yo : TableColumn[User,String],
+     private var col_uname : TableColumn[User,String],
+     private var col_balance : TableColumn[User,String],
+     private var col_fname : TableColumn[User,String],
+     private var col_lname : TableColumn[User,String],
+     private var col_password : TableColumn[User,String],
+     private var col_address : TableColumn[User,String],
+     private var col_contact : TableColumn[User,String],
+     private var col_gender : TableColumn[User,String],
+     private var col_dob: TableColumn[User,String],
+     private var col_nation : TableColumn[User,String],
+     private var col_accno : TableColumn[User,String],
+     private var col_status : TableColumn[User,String],
+     private var col_debt   : TableColumn[User,String],
+     private var col_yo : TableColumn[User,String],
      var userScrollPane : ScrollPane,
+     private var search: TextField,
      
      
      private val transactionTable : TableView[TransactionRecords],
@@ -48,11 +48,8 @@ class AdminEventController(
      private val col_receiverno : TableColumn[TransactionRecords,String],
      private val transactionScrollPane : ScrollPane,
      
-     
-     var search: TextField,
-     
-     
 
+     
     var personaldetailspanel : AnchorPane,
     var pd_fname : scalafx.scene.control.Label,
     var pd_lname : Label,
@@ -118,6 +115,33 @@ class AdminEventController(
   var selectedAcc : String=null;
 tableUser.selectionModel().selectedItem.onChange(
      (_, _, newValue) => selectedAcc=newValue.u_accno)
+     
+     
+         
+ def addQuery (e :ActionEvent) {
+    searchQuery += search.text.value
+    querydisplay.text.value = querydisplay.text.value + search.text.value + ","
+    search.clear()
+    
+    var tempType = ArrayBuffer[Tuple2[String,User]]()
+   for (counter <- Main.user){
+   if (fil_uname.selected.value==true)    {tempType += ((counter.u_uname,counter));count=count+1}
+   if (fil_password.selected.value==true) {tempType += ((counter.u_password,counter));count=count+1}
+   if (fil_nation.selected.value==true)   {tempType += ((counter.u_nation,counter));count=count+1}
+   if (fil_fname.selected.value==true)    {tempType += ((counter.u_fname,counter));count=count+1}
+   if (fil_lname.selected.value==true)    {tempType += ((counter.u_lname,counter));count=count+1}
+   if (fil_status.selected.value==true)   {tempType += ((counter.p_status,counter));count=count+1}
+   }
+
+ 
+    collectionArray.append(tempType)
+    fil_uname.selected=false
+    fil_password.selected=false
+    fil_nation.selected=false
+    fil_fname.selected=false
+    fil_lname.selected=false
+    fil_status.selected=false
+}
 
 def startSearch(e :ActionEvent ) {
   
@@ -125,7 +149,7 @@ def startSearch(e :ActionEvent ) {
    tempCollections.clear
   var limit=count/Main.user.length
   
-  if (r_or.selected.value==true)  searchOR(collectionArray);
+   if (r_or.selected.value==true)  searchOR(collectionArray);
    if (r_and.selected.value==true) searchAND(collectionArray,limit);
   }
  }
@@ -148,6 +172,7 @@ def searchOR(copyUser : ArrayBuffer[ArrayBuffer[Tuple2[String,User]]]) {
      tableUser.items=tempCollections
        
 }
+
 def searchAND(copyUser : ArrayBuffer[ArrayBuffer[Tuple2[String,User]]], limit : Int){
   
       tableUser.items=null
@@ -222,43 +247,19 @@ def searchAND(copyUser : ArrayBuffer[ArrayBuffer[Tuple2[String,User]]], limit : 
          tableUser.items().remove(tempCollections.indexWhere( _.u_accno == selectedAcc))
 
     }
-    
-    def addQuery (e :ActionEvent) {
-    searchQuery += search.text.value
-    querydisplay.text.value = querydisplay.text.value + search.text.value + ","
-    search.clear()
-    
-    var tempType = ArrayBuffer[Tuple2[String,User]]()
-   for (counter <- Main.user){
-   if (fil_uname.selected.value==true)    {tempType += ((counter.u_uname,counter));count=count+1}
-   if (fil_password.selected.value==true) {tempType += ((counter.u_password,counter));count=count+1}
-   if (fil_nation.selected.value==true)   {tempType += ((counter.u_nation,counter));count=count+1}
-   if (fil_fname.selected.value==true)    {tempType += ((counter.u_fname,counter));count=count+1}
-   if (fil_lname.selected.value==true)    {tempType += ((counter.u_lname,counter));count=count+1}
-   if (fil_status.selected.value==true)   {tempType += ((counter.p_status,counter));count=count+1}
-   }
 
- 
-    collectionArray.append(tempType)
-    fil_uname.selected=false
-    fil_password.selected=false
-    fil_nation.selected=false
-    fil_fname.selected=false
-    fil_lname.selected=false
-    fil_status.selected=false
     
-}
-    
-      def openTransactionTable(event: ActionEvent){
+def openTransactionTable(event: ActionEvent){
         userScrollPane.visible=false
         transactionScrollPane.visible=true
       }
       
-      def openUserTable(event : ActionEvent) {
+def openUserTable(event : ActionEvent) {
         userScrollPane.visible=true
         transactionScrollPane.visible=false
       }
-      def logout(event: ActionEvent) {
+
+def logout(event: ActionEvent) {
     Main.roots.setCenter(Main.mainpage)
     Main.registercontroller.loginasadmin=false
 

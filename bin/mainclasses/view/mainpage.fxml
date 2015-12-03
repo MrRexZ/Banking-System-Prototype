@@ -21,7 +21,7 @@
     </Label>
     <Label font="$x1" layoutX="84.0" layoutY="214.0" prefHeight="22.0" prefWidth="109.0" text="PASSWORD:" />
     <TextField fx:id="log_username" layoutX="70.0" layoutY="173.0" prefWidth="200.0" />
-    <Button fx:id="submitbutton" layoutX="201.0" layoutY="299.0" mnemonicParsing="false" onAction="#login" onMouseDragOver="#foo" prefHeight="22.0" prefWidth="75.0" text="SUBMIT" />
+    <Button fx:id="submitbutton" layoutX="201.0" layoutY="299.0" mnemonicParsing="false" onAction="#login" prefHeight="22.0" prefWidth="75.0" text="SUBMIT" />
       <Hyperlink fx:id="register" layoutX="145.0" layoutY="330.0" onAction="#openRegistrationForm" text="Click here to register for new user" />
       <Label layoutX="34.0" layoutY="14.0" text="Welcome to CIMD banking system!">
          <font>

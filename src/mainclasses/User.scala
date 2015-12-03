@@ -1,5 +1,5 @@
 package mainclasses
-import scalafx.beans.property.{ObjectProperty, StringProperty} 
+import scalafx.beans.property.{ObjectProperty, StringProperty}  
 import Main.{usercontroller => form, admincontroller => admineditform}
 import javax.swing.JOptionPane;
 
@@ -37,10 +37,7 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
     u_address=checkIfEmpty(form.edit_address.text.value,u_address)
     u_contact = checkIfEmpty(form.edit_contactno.text.value,u_contact)
     u_password=checkIfEmpty(form.edit_password.text.value,u_password)
-    
-    
-
-      updateAcc()
+    updateAcc()
     
   }
   
@@ -87,10 +84,7 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
     case "" => y
     case _ => x
   }
-  
-  def removeUser() {
 
-  }
   
   def upgradeUser() {
     if (u_balance>=500) {
@@ -106,5 +100,5 @@ class User(var u_uname : String,var u_password : String,var u_fname : String = n
 }
 
 object User {
-  var counteraccno=4
+  var counteraccno=6
 }
