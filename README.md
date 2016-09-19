@@ -1,4 +1,4 @@
-A banking system prototype implemented using Scala langauge and use of ScalaFX and ScalaFXML librariy with paradise plugin.
+A banking system prototype implemented using Scala langauge and use of ScalaFX and ScalaFXML libraries with paradise plugin.
 The system provides 2 types of interface, for user and for admins.
  
 <p align="center"> <b>Main screen : </b>
