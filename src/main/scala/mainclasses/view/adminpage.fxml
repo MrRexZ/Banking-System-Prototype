@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.AdminEventController">
+   <children>
+      <SplitPane dividerPositions="0.2599388379204893" layoutY="96.0" prefHeight="480.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="478.0" prefWidth="153.0">
+               <children>
+                  <Button layoutX="13.0" layoutY="430.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+                  <TextField fx:id="search" layoutX="21.0" layoutY="54.0" prefHeight="25.0" prefWidth="99.0" />
+                  <Button fx:id="Search" layoutX="70.0" layoutY="87.0" mnemonicParsing="false" onAction="#startSearch" prefHeight="25.0" prefWidth="54.0" text="Search" />
+                  <Button fx:id="edit" layoutX="22.0" layoutY="147.0" mnemonicParsing="false" onAction="#editSelected" text="Edit" />
+                  <Button fx:id="remove" layoutX="67.0" layoutY="147.0" mnemonicParsing="false" onAction="#removeElement" text="Remove" />
+                  <Button fx:id="Search1" layoutX="7.0" layoutY="87.0" mnemonicParsing="false" onAction="#addQuery" prefHeight="25.0" prefWidth="54.0" text="Add" />
+                  <GridPane layoutX="10.0" layoutY="245.0" prefHeight="90.0" prefWidth="167.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="10.0" prefWidth="66.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.0" minWidth="10.0" prefWidth="84.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <CheckBox fx:id="fil_uname" mnemonicParsing="false" text="Username" />
+                        <CheckBox fx:id="fil_password" mnemonicParsing="false" text="Password" GridPane.columnIndex="1" />
+                        <CheckBox fx:id="fil_nation" mnemonicParsing="false" text="Nationality" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="fil_fname" mnemonicParsing="false" text="First Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="fil_lname" mnemonicParsing="false" text="Last Name" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="fil_status" mnemonicParsing="false" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <HBox layoutX="7.0" layoutY="198.0" prefHeight="19.0" prefWidth="157.0">
+                     <children>
+                        <RadioButton fx:id="r_and" mnemonicParsing="false" text="AND type">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="searchGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="r_or" mnemonicParsing="false" text="OR type" toggleGroup="$searchGroup" />
+                     </children>
+                  </HBox>
+                  <Label layoutX="10.0" layoutY="231.0" text="Search By :" />
+                  <Label layoutX="14.0" layoutY="181.0" text="Search type :" />
+                  <Button layoutX="40.0" layoutY="115.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+                  <Button layoutX="79.0" layoutY="362.0" mnemonicParsing="false" onAction="#openTransactionTable" prefHeight="25.0" prefWidth="79.0" text="Transaction List">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Button>
+                  <Button layoutY="362.0" mnemonicParsing="false" onAction="#openUserTable" prefHeight="25.0" prefWidth="77.0" text="User List">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Button>
+                  <ScrollPane fx:id="queryScrollPane" layoutX="12.0" prefHeight="47.0" prefWidth="99.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="88.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="querydisplay" layoutX="10.0" layoutY="3.0" prefHeight="17.0" prefWidth="955.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+            <StackPane>
+               <children>
+                  <AnchorPane fx:id="personaldetailspanel" prefHeight="398.0" prefWidth="457.0" visible="false">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="395.0" prefWidth="116.0" spacing="20.0">
+                           <children>
+                              <Label graphicTextGap="0.0" prefHeight="11.0" prefWidth="75.0" text="First Name" />
+                              <Label prefHeight="19.0" prefWidth="65.0" text="Last Name" />
+                              <Label text="Gender" />
+                              <Label text="DOB" />
+                              <Label text="Nationality" />
+                              <Label text="Address" />
+                              <Label text="Contact Number">
+                                 <VBox.margin>
+                                    <Insets top="70.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Username" />
+                              <Label text="Password" />
+                           </children>
+                        </VBox>
+                        <Button layoutX="61.0" layoutY="427.0" mnemonicParsing="false" onAction="#confirmChanges" text="Confirm" />
+                        <VBox layoutX="120.0" layoutY="15.0" prefHeight="387.0" prefWidth="252.0" spacing="20.0">
+                           <children>
+                              <TextField fx:id="edit_fname" />
+                              <TextField fx:id="edit_lname">
+                                 <VBox.margin>
+                                    <Insets top="-10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="edit_gender">
+                                 <VBox.margin>
+                                    <Insets top="-5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <DatePicker fx:id="edit_dob">
+                                 <VBox.margin>
+                                    <Insets top="-8.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <TextField fx:id="edit_nation">
+                                 <VBox.margin>
+                                    <Insets top="-10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextArea fx:id="edit_address" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="252.0">
+                                 <VBox.margin>
+                                    <Insets top="-5.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <TextField fx:id="edit_contactno">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="edit_uname" />
+                              <TextField fx:id="edit_password" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <ScrollPane fx:id="transactionScrollPane" prefViewportHeight="398.0" prefViewportWidth="417.0" visible="false">
+                     <content>
+                        <TableView fx:id="transactionTable" editable="true">
+                           <columns>
+                              <TableColumn fx:id="col_transactionno" prefWidth="97.0" text="Transaction No" />
+                              <TableColumn fx:id="col_transactionamount" prefWidth="123.0" text="Amount" />
+                              <TableColumn fx:id="col_senderno" prefWidth="103.0" text="Sender No" />
+                              <TableColumn fx:id="col_receiverno" prefWidth="155.0" text="Recipient No" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane fx:id="userScrollPane" prefViewportHeight="398.0" prefViewportWidth="417.0">
+                     <content>
+                        <TableView fx:id="tableUser" editable="true">
+                          <columns>
+                            <TableColumn fx:id="col_uname" prefWidth="72.0" text="Username" />
+                              <TableColumn fx:id="col_password" prefWidth="70.0" text="Password" />
+                              <TableColumn fx:id="col_balance" prefWidth="72.0" text="Balance" />
+                            <TableColumn fx:id="col_fname" prefWidth="100.0" text="First Name" />
+                              <TableColumn fx:id="col_lname" prefWidth="68.0" text="Last Name" />
+                              <TableColumn fx:id="col_address" minWidth="-1.0" prefWidth="200.0" text="Address" />
+                              <TableColumn fx:id="col_contact" minWidth="0.0" prefWidth="120.0" text="Contact" />
+                              <TableColumn fx:id="col_gender" minWidth="0.0" prefWidth="75.0" text="Gender" />
+                              <TableColumn fx:id="col_dob" prefWidth="120.0" text="DOB" />
+                              <TableColumn fx:id="col_nation" prefWidth="120.0" text="Nationality" />
+                              <TableColumn fx:id="col_accno" prefWidth="46.0" text="Account Number" />
+                              <TableColumn fx:id="col_status" prefWidth="46.0" text="Status" />
+                              <TableColumn fx:id="col_debt" prefWidth="46.0" text="Debt" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </StackPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

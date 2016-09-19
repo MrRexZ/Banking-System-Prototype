@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/paradise_2.11.7-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/scalafx_2.11-8.0.40-R8.jar"/>
-	<classpathentry kind="lib" path="lib/scalafxml-core-macros-sfx8_2.11-0.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/scalafxml-core-sfx8_2.11-0.2.2.jar"/>
-	<classpathentry kind="output" path="bin"/>
+  <classpathentry kind="src" path="src\main\scala"/>
+  <classpathentry kind="src" path="src\main\resources"/>
+  <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+  <classpathentry kind="lib" path="C:\Users\Mr_RexZ\.ivy2\cache\org.scalafx\scalafxml-core-sfx8_2.11\jars\scalafxml-core-sfx8_2.11-0.2.2.jar"/>
+  <classpathentry kind="lib" path="C:\Users\Mr_RexZ\.ivy2\cache\org.scalafx\scalafxml-core-macros-sfx8_2.11\jars\scalafxml-core-macros-sfx8_2.11-0.2.2.jar"/>
+  <classpathentry kind="lib" path="C:\Users\Mr_RexZ\.ivy2\cache\org.scalafx\scalafx_2.11\jars\scalafx_2.11-8.0.92-R10.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="output" path="bin"/>
 </classpath>

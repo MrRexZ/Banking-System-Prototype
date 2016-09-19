@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventhandling.RegistrationLogin">
+   <children>
+      <Label layoutX="306.0" layoutY="14.0" text="Registration Form" />
+      <VBox layoutX="94.0" layoutY="48.0" prefHeight="300.0" prefWidth="112.0" spacing="20.0">
+         <children>
+            <Label graphicTextGap="0.0" prefHeight="11.0" prefWidth="75.0" text="First Name" />
+            <Label prefHeight="19.0" prefWidth="65.0" text="Last Name" />
+            <Label text="Gender" />
+            <Label text="DOB" />
+            <Label text="Nationality" />
+            <Label text="Address" />
+            <Label text="Contact Number">
+               <VBox.margin>
+                  <Insets top="70.0" />
+               </VBox.margin></Label>
+            <Label text="Username" />
+            <Label text="Password" />
+            <Label prefHeight="17.0" prefWidth="136.0" text="Confirm Password" />
+         </children>
+      </VBox>
+      <VBox layoutX="214.0" layoutY="46.0" prefHeight="200.0" prefWidth="340.0" spacing="12.0">
+         <children>
+            <TextField fx:id="r_fname" />
+            <TextField fx:id="r_lname" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <RadioButton fx:id="r_male" mnemonicParsing="false" selected="true" text="Male">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radioGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="r_female" mnemonicParsing="false" text="Female" toggleGroup="$radioGroup">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="r_other" mnemonicParsing="false" text="Other" toggleGroup="$radioGroup">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
+            </HBox>
+            <DatePicker fx:id="r_dob" prefHeight="25.0" prefWidth="238.0" />
+            <TextField fx:id="r_nation" />
+            <TextArea fx:id="r_address" minHeight="100.0" prefHeight="0.0" prefWidth="0.0" />
+            <TextField fx:id="r_contactnum" />
+            <TextField fx:id="r_username" />
+            <PasswordField fx:id="r_password" />
+            <PasswordField fx:id="r_confirmpass" />
+         </children>
+      </VBox>
+      <Button layoutX="234.0" layoutY="486.0" mnemonicParsing="false" onAction="#createUser" text="Register" />
+   </children>
+</AnchorPane>
